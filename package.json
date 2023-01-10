@@ -1,7 +1,7 @@
 {
-  "name": "fs-app-template",
+  "name": "insomnia-shopper",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Grace shopper!",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
