@@ -38,7 +38,8 @@ const AuthForm = ({ name, displayName }) => {
         <div>
           <button type="submit">{displayName}</button>
         </div>
-        {error && <div> {error} </div>}
+        {/* todo: this error does not create an error page, and this should be fixed once an error component is made */}
+        {error && <div> {error.message} </div>}
       </form>
     </div>
   );

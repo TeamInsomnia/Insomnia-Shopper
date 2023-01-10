@@ -6,3 +6,4 @@ export { default as AuthForm } from "./auth/AuthForm";
 export { default as Home } from "./Home";
 export { default as Navbar } from "./static/Navbar";
 
+export { default as AllProducts } from "./products/AllProducts";

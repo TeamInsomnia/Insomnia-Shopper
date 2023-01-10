@@ -5,8 +5,8 @@ export const fetchAllProducts = createAsyncThunk(
   "fetchAllProducts",
   async () => {
     try {
-      const { products } = await axios.get("/api/products");
-      return products;
+      const { data } = await axios.get("/api/products");
+      return data;
     } catch (err) {
       console.error("error in fetchAllProducts thunk: ", err);
     }
@@ -14,7 +14,7 @@ export const fetchAllProducts = createAsyncThunk(
 );
 
 export const allProductsSlice = createSlice({
-  name: allProductsSlice,
+  name: "allProductsSlice",
   initialState: [],
   reducers: {},
   extraReducers: (builder) => {
