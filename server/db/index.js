@@ -8,9 +8,12 @@ const Cart = require("./models/Cart");
 
 //associations shall go here! this is a MANY-TO-MANY via a Through table.
 // Therefore: we need to CREATE a through table?! some sort of Join?
-const Cart = sequelize.define("Cart");
-User.belongsToMany(Product, { through: Cart });
-Product.belongsToMany(Product, { through: Cart });
+
+User.hasOne(Cart);
+Cart.belongsTo(User);
+
+Cart.hasMany(Product);
+Product.belongsTo(Cart);
 
 module.exports = {
   db,

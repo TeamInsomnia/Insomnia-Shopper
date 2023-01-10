@@ -19,8 +19,6 @@ async function seed() {
     User.create({ username: "murphy", password: "123" }),
   ]);
 
-  const carts = await Promise.all([Cart.create({ name: "jeffreyCart" })]);
-
   // name, desc, price, material, color
   const products = await Promise.all([
     Product.create({
