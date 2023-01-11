@@ -1,4 +1,4 @@
-// THIS is where the product model will go!
+// THIS houses the product model!
 // we need: name, desc, price, material, color, and... MAYBE store quantity??
 // will we need an INSTANCE METHOD to address that store quantity?
 
