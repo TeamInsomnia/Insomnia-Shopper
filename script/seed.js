@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Product, Cart },
+  models: { User, Product},
 } = require("../server/db");
 
 /**
@@ -24,35 +24,35 @@ async function seed() {
     Product.create({
       name: "TABLE",
       description: "Elevated flat surface",
-      price: 556.72,
+      price: 55672,
       material: "stainless steel",
       color: "red",
     }),
     Product.create({
       name: "SOFA",
       description: "Long armchair",
-      price: 3.14,
+      price: 314,
       material: "luxurious fluff",
       color: "hazelnut",
     }),
     Product.create({
       name: "CHAIR",
       description: "non-standing person rest",
-      price: 86753.09,
+      price: 8675309,
       material: "bamboo",
       color: "vermillion",
     }),
     Product.create({
       name: "NIGHTSTAND",
       description: "drawers + flat surface",
-      price: 80088888.88,
+      price: 8008,
       material: "oak",
       color: "indigo",
     }),
     Product.create({
       name: "WORK DESK",
       description: "Table + drawers",
-      price: 2.72,
+      price: 272,
       material: "adamantium",
       color: "cerulean",
     }),

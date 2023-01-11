@@ -10,11 +10,19 @@ const User = db.define("user", {
   username: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false,
+    allowNull: false
   },
   password: {
     type: Sequelize.STRING,
+    allowNull: false
   },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: true, 
+    validate: {
+      isEmail: true
+    }
+  }
 });
 
 module.exports = User;

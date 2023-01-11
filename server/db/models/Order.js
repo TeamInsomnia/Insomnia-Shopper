@@ -16,15 +16,14 @@ CART will need these attributes:
 >> total price of all cart items 
 */
 
-const Cart = db.define("cart", {
-  quantity: {
-    type: Sequelize.INTEGER,
-    allowNull: true,
-  },
-  productId: {
-    type: Sequelize.INTEGER,
-    allowNull: true,
-  },
+const Order = db.define("order", {
+  purchased: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false 
+  }, 
+  totalPrice: {
+    type: Sequelize.INTEGER, 
+  }
 });
 
-module.exports = Cart;
+module.exports = Order;
