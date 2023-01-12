@@ -1,7 +1,14 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { Home, AuthForm, AllProducts, SingleProduct, Cart } from "..";
+import {
+  Home,
+  AuthForm,
+  AllProducts,
+  SingleProduct,
+  PageNotFound,
+  Cart,
+} from "..";
 import { me } from "../../features";
 
 /**
@@ -21,17 +28,19 @@ const AppRoutes = () => {
       <Routes>
         {isLoggedIn ? (
           <>
-            <Route path="/*" element={<Home />} />
-            <Route to="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Home />} />
+            <Route path="/signup" element={<Home />} />
+
+            <Route path="/products/" element={<AllProducts />} />
+            <Route path="/products/:productId" element={<SingleProduct />} />
+
+            <Route path="/cart" element={<Cart />} />
           </>
         ) : (
           <>
-            <Route
-              path="/*" // THIS path catches all of the URL bar typos!
-              // element={<AuthForm name="login" displayName="Login" />}
-              element={<SingleProduct />}
-              // Task: replace this with something like "PAGE NOT FOUND."
-            />
+            <Route path="/" element={<Home />} />
+
             <Route
               path="/login"
               element={<AuthForm name="login" displayName="Login" />}
@@ -39,13 +48,12 @@ const AppRoutes = () => {
             <Route
               path="/signup"
               element={<AuthForm name="signup" displayName="Join Insomnia." />}
-            />{" "}
+            />
+
+            <Route path="/products/" element={<AllProducts />} />
+            <Route path="/products/:productId" element={<SingleProduct />} />
           </>
         )}
-
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/products/" element={<AllProducts />} />
-        <Route path="/products/:productId" element={<SingleProduct />} />
       </Routes>
     </div>
   );

@@ -10,7 +10,6 @@ export {
   fetchAllProducts,
 } from "./products/allProductsSlice";
 
-//
 export {
   default as singleProductReducer,
   fetchSingleProduct,
