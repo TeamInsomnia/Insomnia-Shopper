@@ -21,8 +21,10 @@ export const fetchSingleOrderDetailAsync = createAsyncThunk('/orderDetails', asy
     }
 })
 
-export const addToCartAsync = createAsyncThunk('/orderDetails', async({orderId, quantity})=>{
-    const {data} = await axios.put(`/api/orderDetails/${orderId}`, {
+export const addToCartAsync = createAsyncThunk('/orderDetails', async({orderId, productId, quantity})=>{
+    const {data} = await axios.put('/api/orderDetails/', {
+        orderId,
+        productId, 
         quantity
     });
     return data; 
@@ -41,7 +43,7 @@ export const cartSlice = createSlice({
         builder.addCase(fetchSingleOrderDetailAsync.fulfilled, (state, action)=>{
             return action.payload;
         })
-        builder.addCase(addToCart.fulfilled, (state, action)=>{
+        builder.addCase(addToCartAsync.fulfilled, (state, action)=>{
             return action.payload; 
         })
     }

@@ -14,16 +14,12 @@ const OrderDetails = db.define("orderDetails", {
   },
 });
 
-const updateOrderDetails = async (instance) => {
+const updateQuantityPrice = async (instance) => {
   const product = await Product.findByPk(instance.productId);
-  const order = await Order.findByPk(instance.orderId);
-  instance.quantity++;
   instance.quantityPrice = product.price * instance.quantity;
-  order.totalPrice += instance.quantityPrice;
-  await order.save();
 };
 
-OrderDetails.beforeCreate(updateOrderDetails);
-OrderDetails.beforeUpdate(updateOrderDetails);
+OrderDetails.beforeCreate(updateQuantityPrice);
+OrderDetails.beforeUpdate(updateQuantityPrice);
 
 module.exports = OrderDetails;
