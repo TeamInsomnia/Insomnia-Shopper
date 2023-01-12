@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { Home, AuthForm, AllProducts, SingleProduct } from "..";
+import PageNotFound from "../products/PageNotFound";
 import { me } from "../../features";
 
 /**
@@ -27,8 +28,10 @@ const AppRoutes = () => {
         ) : (
           <>
             <Route
-              path="/*"
-              element={<AuthForm name="login" displayName="Login" />}
+              path="/*" // THIS path catches all of the URL bar typos!
+              // element={<AuthForm name="login" displayName="Login" />}
+              element={<SingleProduct />}
+              // Task: replace this with something like "PAGE NOT FOUND."
             />
             <Route
               path="/login"
@@ -36,7 +39,7 @@ const AppRoutes = () => {
             />
             <Route
               path="/signup"
-              element={<AuthForm name="signup" displayName="Sign Up" />}
+              element={<AuthForm name="signup" displayName="Join Insomnia." />}
             />{" "}
           </>
         )}

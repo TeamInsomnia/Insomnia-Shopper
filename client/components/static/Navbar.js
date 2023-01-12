@@ -14,11 +14,15 @@ const Navbar = () => {
 
   return (
     <div>
-      <h1>Team Insomnia</h1>
+      <h1>
+        <i>INSOMNIA FURNITURE.</i>{" "}
+      </h1>
       <nav>
         {isLoggedIn ? (
           <div>
-            {/* The navbar will show these links after you log in */}
+            {/* The navbar will show these links after you log in.
+            (We'll need to set up authentication, of course.)
+             */}
             <Link to="/home">Home</Link>
             <button type="button" onClick={logoutAndRedirectHome}>
               Logout
@@ -26,9 +30,12 @@ const Navbar = () => {
           </div>
         ) : (
           <div>
-            {/* The navbar will show these links before you log in */}
-            <Link to="/login">Login</Link>
+            {/* On the other hand, navbar shows THESE links prior to log-in. */}
+            <Link to="/login">Log In</Link>
             <Link to="/signup">Sign Up</Link>
+            <Link to="/cart">Cart!</Link>
+            {/* /cart doesn't exist yet! ~ jw:jan 12@1120 */}
+            <Link to="/products">View offerings.</Link>
           </div>
         )}
       </nav>
