@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Product},
+  models: { User, Product, Order, OrderDetails },
 } = require("../server/db");
 
 /**
@@ -55,6 +55,18 @@ async function seed() {
       price: 272,
       material: "adamantium",
       color: "cerulean",
+    }),
+  ]);
+
+  await Promise.all([
+    Order.create({
+      userId: 1,
+    }),
+  ]);
+  await Promise.all([
+    OrderDetails.create({
+      orderId: 1,
+      productId: 1,
     }),
   ]);
 

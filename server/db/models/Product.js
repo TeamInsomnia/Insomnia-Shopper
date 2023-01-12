@@ -1,7 +1,3 @@
-// THIS is where the product model will go!
-// we need: name, desc, price, material, color, and... MAYBE store quantity??
-// will we need an INSTANCE METHOD to address that store quantity?
-
 const Sequelize = require("sequelize");
 const db = require("../db");
 
