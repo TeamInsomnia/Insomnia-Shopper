@@ -19,6 +19,10 @@ const SingleProduct = () => {
     dispatch(fetchSingleProduct(productId));
   }, [dispatch]);
 
+  const handleButton = () => {
+    
+  }
+
   // We need a key=__ in this return statement, don't we?
   return (
     <div>

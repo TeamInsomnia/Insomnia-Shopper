@@ -16,3 +16,10 @@ export {
   fetchSingleProduct,
   selectSingleProduct,
 } from "./products/singleProductSlice";
+
+export {
+  default as cartReducer, 
+  fetchOrderDetailsAsync,
+  fetchSingleOrderDetailAsync, 
+  addToCartAsync
+} from './cart/cartSlice';
