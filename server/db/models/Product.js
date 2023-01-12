@@ -1,7 +1,3 @@
-// THIS houses the product model!
-// we need: name, desc, price, material, color, and... MAYBE store quantity??
-// will we need an INSTANCE METHOD to address that store quantity?
-
 const Sequelize = require("sequelize");
 const db = require("../db");
 
@@ -12,11 +8,11 @@ const Product = db.define("product", {
     allowNull: false,
   },
   description: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: false,
   },
   price: {
-    type: Sequelize.DECIMAL,
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
   material: {
