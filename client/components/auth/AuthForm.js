@@ -2,26 +2,22 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { authenticate } from "../../features";
 
-/**
-  The AuthForm component can be used for Login or Sign Up.
-  Props for Login: name="login", displayName="Login"
-  Props for Sign up: name="signup", displayName="Sign Up"
-**/
-
 const AuthForm = ({ name, displayName }) => {
   const { error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
     const formName = evt.target.name;
     const username = evt.target.username.value;
     const password = evt.target.password.value;
-    dispatch(authenticate({ username, password, method: formName }));
+    await dispatch(authenticate({ username, password, method: formName }));
   };
 
   return (
     <div>
+      {displayName === "Login" ? <h3>Login</h3> : <h3>Join Insomnia</h3>}
+      {error && <div> {error} </div>}
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="username">
@@ -38,8 +34,6 @@ const AuthForm = ({ name, displayName }) => {
         <div>
           <button type="submit">{displayName}</button>
         </div>
-        {/* todo: this error does not create an error page, and this should be fixed once an error component is made */}
-        {error && <div> {error.message} </div>}
       </form>
     </div>
   );
