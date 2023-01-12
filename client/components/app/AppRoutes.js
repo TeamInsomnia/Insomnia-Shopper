@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { Home, AuthForm, AllProducts, SingleProduct } from "..";
-import PageNotFound from "../products/PageNotFound";
+import { Home, AuthForm, AllProducts, SingleProduct, Cart } from "..";
 import { me } from "../../features";
 
 /**
@@ -44,6 +43,7 @@ const AppRoutes = () => {
           </>
         )}
 
+        <Route path="/cart" element={<Cart />} />
         <Route path="/products/" element={<AllProducts />} />
         <Route path="/products/:productId" element={<SingleProduct />} />
       </Routes>

@@ -28,6 +28,10 @@ const SingleProduct = () => {
         {" "}
         Material: {material}. Color: {color}. Price: ${price}.
       </p>
+      <button>ADD {name} TO CART.</button>
+      {/* Check: are there any cells under PURCHASED column that says False? 
+      if YES: add to that order ("cart"). 
+      if NO: add new instance of order.*/}
     </div>
   );
 };

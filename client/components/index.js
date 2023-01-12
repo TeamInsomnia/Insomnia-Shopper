@@ -8,4 +8,4 @@ export { default as Navbar } from "./static/Navbar";
 
 export { default as AllProducts } from "./products/AllProducts";
 export { default as SingleProduct } from "./products/SingleProduct";
-//export { default as Cart } from "./Cart" ??
+export { default as Cart } from "./Cart";

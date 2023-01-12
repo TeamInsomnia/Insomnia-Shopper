@@ -2,7 +2,6 @@ const router = require("express").Router();
 const {
   models: { Product },
 } = require("../db");
-module.exports = router;
 
 // this "Manifests" from xyz.com/api/products/.
 router.get("/", async (req, res, next) => {
@@ -22,3 +21,4 @@ router.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
+module.exports = router;
