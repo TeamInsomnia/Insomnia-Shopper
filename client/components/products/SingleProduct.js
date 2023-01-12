@@ -22,14 +22,12 @@ const SingleProduct = () => {
   // We need a key=__ in this return statement, don't we?
   return (
     <div>
-      <h3>
-        Hope this works! Behold a rough-draft view of the following product:{" "}
-        {name}
-      </h3>
-      <p> Description: {description}</p>
-      <p> Material: {material}</p>
-      <p> Color: {color}</p>
-      <p> Price: {price}</p>
+      <h3>{name}</h3>
+      <p> Description: {description}.</p>
+      <p>
+        {" "}
+        Material: {material}. Color: {color}. Price: ${price}.
+      </p>
     </div>
   );
 };
