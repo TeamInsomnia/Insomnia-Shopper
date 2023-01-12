@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { Home, AuthForm, AllProducts } from "..";
+import { Home, AuthForm, AllProducts, SingleProduct } from "..";
 import { me } from "../../features";
 
 /**
@@ -18,28 +18,32 @@ const AppRoutes = () => {
 
   return (
     <div>
-      {isLoggedIn ? (
-        <Routes>
-          <Route path="/*" element={<Home />} />
-          <Route to="/home" element={<Home />} />
-        </Routes>
-      ) : (
-        <Routes>
-          <Route
-            path="/*"
-            element={<AuthForm name="login" displayName="Login" />}
-          />
-          <Route
-            path="/login"
-            element={<AuthForm name="login" displayName="Login" />}
-          />
-          <Route
-            path="/signup"
-            element={<AuthForm name="signup" displayName="Sign Up" />}
-          />
-          <Route path="/products" element={<AllProducts />} />
-        </Routes>
-      )}
+      <Routes>
+        {isLoggedIn ? (
+          <>
+            <Route path="/*" element={<Home />} />
+            <Route to="/home" element={<Home />} />
+          </>
+        ) : (
+          <>
+            <Route
+              path="/*"
+              element={<AuthForm name="login" displayName="Login" />}
+            />
+            <Route
+              path="/login"
+              element={<AuthForm name="login" displayName="Login" />}
+            />
+            <Route
+              path="/signup"
+              element={<AuthForm name="signup" displayName="Sign Up" />}
+            />{" "}
+          </>
+        )}
+
+        <Route path="/products/" element={<AllProducts />} />
+        <Route path="/products/:productId" element={<SingleProduct />} />
+      </Routes>
     </div>
   );
 };
