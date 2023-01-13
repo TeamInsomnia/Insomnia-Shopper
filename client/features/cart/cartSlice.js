@@ -22,15 +22,32 @@ export const fetchSingleOrderDetailAsync = createAsyncThunk('/orderDetails', asy
 })
 
 export const addExistingToCartAsync = createAsyncThunk('/updateOrderDetails', async({orderId, productId, quantity})=>{
-    const {data} = await axios.put('/api/orderDetails/', {
-        orderId,
-        productId, 
-        quantity
-    });
-    return data; 
+    try{
+        const {data} = await axios.put('/api/orderDetails/', {
+            orderId,
+            productId, 
+            quantity
+        });
+        return data; 
+    }
+    catch (error){
+        console.error(error);
+    }
 })
 
-export const
+export const addNewToCartAsync = createAsyncThunk('/addToOrderDetails', async({orderId, productId, quantity})=>{
+    try{
+        const {data} = await axios.post('/api/orderDetails/', {
+            orderId, 
+            productId, 
+            quantity
+        });
+        return data;
+    }
+    catch (error){
+        console.error(error)
+    }
+})
 
 export const cartSlice = createSlice({
     name: 'cart', 
@@ -46,6 +63,9 @@ export const cartSlice = createSlice({
         })
         builder.addCase(addExistingToCartAsync.fulfilled, (state, action)=>{
             return action.payload; 
+        })
+        builder.addCase(addNewToCartAsync.fulfilled, (state, action)=>{
+            state.push(action.payload);
         })
     }
 })

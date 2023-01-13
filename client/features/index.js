@@ -20,5 +20,6 @@ export {
   default as cartReducer, 
   fetchOrderDetailsAsync,
   fetchSingleOrderDetailAsync, 
-  addExistingToCartAsync
+  addExistingToCartAsync, 
+  addNewToCartAsync
 } from './cart/cartSlice';

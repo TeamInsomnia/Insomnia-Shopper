@@ -19,6 +19,7 @@ router.get("/:id", async (req, res, next) => {
         }
       }
     });
+    console.log(currentOrder);
     res.send(currentOrder);
   } catch (err) {
     next(err);
