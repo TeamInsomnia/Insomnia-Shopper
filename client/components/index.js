@@ -9,5 +9,6 @@ export { default as PageNotFound } from "./static/PageNotFound";
 
 export { default as AllProducts } from "./products/AllProducts";
 export { default as SingleProduct } from "./products/SingleProduct";
+export { default as ProductForm } from "./products/ProductForm";
 
 export { default as Cart } from "./cartCheckout/Cart";

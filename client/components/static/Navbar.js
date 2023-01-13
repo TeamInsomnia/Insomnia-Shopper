@@ -5,6 +5,8 @@ import { logout } from "../../features";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const isAdmin = useSelector((state) => state.auth.me.isAdmin);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutAndRedirectHome = () => {
@@ -24,6 +26,7 @@ const Navbar = () => {
           <div>
             <Link to="/cart">Cart!</Link>
             <Link to="/products">View offerings.</Link>
+            {isAdmin && <Link to="/admin">ADMIN</Link>}
             <button type="button" onClick={logoutAndRedirectHome}>
               Logout
             </button>

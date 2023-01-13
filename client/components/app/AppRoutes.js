@@ -8,6 +8,7 @@ import {
   SingleProduct,
   PageNotFound,
   Cart,
+  ProductForm,
 } from "..";
 import { me } from "../../features";
 
@@ -17,6 +18,7 @@ import { me } from "../../features";
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const isAdmin = useSelector((state) => state.auth.me.isAdmin);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,6 +36,18 @@ const AppRoutes = () => {
 
             <Route path="/products/" element={<AllProducts />} />
             <Route path="/products/:productId" element={<SingleProduct />} />
+            {isAdmin && (
+              <>
+                <Route
+                  path="/products/:productId/update"
+                  element={<ProductForm />}
+                />
+                <Route
+                  path="/products/add"
+                  element={<ProductForm />}
+                />
+              </>
+            )}
 
             <Route path="/cart" element={<Cart />} />
           </>
@@ -54,6 +68,7 @@ const AppRoutes = () => {
             <Route path="/products/:productId" element={<SingleProduct />} />
           </>
         )}
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </div>
   );
