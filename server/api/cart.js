@@ -1,26 +1,28 @@
-// THIS IS ACTUALLY cart.js. The code below is from products.js.
-
 const router = require("express").Router();
 const {
-  models: { Product },
+  models: { Order, OrderDetails },
 } = require("../db");
-module.exports = router;
+const Product = require("../db/models/Product");
 
-// this "Manifests" from xyz.com/api/products/.
-router.get("/", async (req, res, next) => {
+
+router.get("/:id", async (req, res, next) => {
   try {
-    const products = await Product.findAll();
-    res.send(products);
+    const currentOrder = await Order.findOne({
+      where: {
+        purchased: false,
+        userId: req.params.id
+      }, 
+      include: {
+        model: Product, 
+        through: {
+          OrderDetails
+        }
+      }
+    });
+    res.send(currentOrder);
   } catch (err) {
     next(err);
   }
 });
 
-// router.get("/:id", async (req, res, next) => {
-//   try {
-//     const product = await Product.findByPk(req.params.id);
-//     res.send(product);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+module.exports = router;

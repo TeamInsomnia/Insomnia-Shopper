@@ -19,8 +19,8 @@ router.put("/", async (req, res, next) => {
         productId: productId
       },
     });
-    await order.increment(['quantity'], {by: quantity})
-    await order.save()
+    await order.update({quantity: quantity})
+    await order.save();
     res.send(order);
   } catch (err) {
     next(err);
