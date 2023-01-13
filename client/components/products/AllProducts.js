@@ -26,7 +26,14 @@ const AllProducts = () => {
           </h4>
         );
       })}
-      <div>{isAdmin && <Link to={`/products/add`}>Add a Product</Link>}</div>
+      <div>
+        {isAdmin && (
+          <>
+            <h4>Admin Mode!</h4>
+            <Link to={`/products/add`}>Add a Product</Link>
+          </>
+        )}
+      </div>
     </div>
   );
 };

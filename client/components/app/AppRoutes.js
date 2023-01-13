@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import {
   Home,
   AuthForm,
+  AllUsers,
   AllProducts,
   SingleProduct,
   PageNotFound,
@@ -34,20 +35,21 @@ const AppRoutes = () => {
             <Route path="/login" element={<Home />} />
             <Route path="/signup" element={<Home />} />
 
-            <Route path="/products/" element={<AllProducts />} />
-            <Route path="/products/:productId" element={<SingleProduct />} />
             {isAdmin && (
               <>
                 <Route
                   path="/products/:productId/update"
-                  element={<ProductForm />}
+                  element={<ProductForm type="update" />}
                 />
                 <Route
                   path="/products/add"
-                  element={<ProductForm />}
+                  element={<ProductForm type="add" />}
                 />
+                <Route path="/users" element={<AllUsers />} />
               </>
             )}
+            <Route path="/products/" element={<AllProducts />} />
+            <Route path="/products/:productId" element={<SingleProduct />} />
 
             <Route path="/cart" element={<Cart />} />
           </>

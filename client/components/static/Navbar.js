@@ -26,7 +26,7 @@ const Navbar = () => {
           <div>
             <Link to="/cart">Cart!</Link>
             <Link to="/products">View offerings.</Link>
-            {isAdmin && <Link to="/admin">ADMIN</Link>}
+            {isAdmin && <Link to="/users">Admin Mode: View Users</Link>}
             <button type="button" onClick={logoutAndRedirectHome}>
               Logout
             </button>

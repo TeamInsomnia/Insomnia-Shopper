@@ -3,6 +3,8 @@ export { default as AppRoutes } from "./app/AppRoutes";
 
 export { default as AuthForm } from "./auth/AuthForm";
 
+export { default as AllUsers } from "./users/AllUsers";
+
 export { default as Home } from "./static/Home";
 export { default as Navbar } from "./static/Navbar";
 export { default as PageNotFound } from "./static/PageNotFound";

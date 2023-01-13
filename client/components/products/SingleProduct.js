@@ -2,9 +2,12 @@
 
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Link } from "react-router-dom";
-import { fetchSingleProduct, selectSingleProduct } from "../../features";
-import { ProductForm } from "../";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import {
+  fetchSingleProduct,
+  selectSingleProduct,
+  deleteProduct,
+} from "../../features";
 
 // SingleProduct Component begins here:
 const SingleProduct = () => {
@@ -12,6 +15,7 @@ const SingleProduct = () => {
   const isAdmin = useSelector((state) => state.auth.me.isAdmin);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { productId } = useParams(); // this grabs the wildcard.
 
   /* Next: deconstruct the attributes out of singleProduct. 
@@ -23,6 +27,11 @@ const SingleProduct = () => {
   }, [dispatch]);
 
   const handleButton = () => {};
+
+  const handleDelete = () => {
+    dispatch(deleteProduct(productId));
+    navigate("/products");
+  };
 
   // We need a key=__ in this return statement, don't we?
   return (
@@ -38,7 +47,15 @@ const SingleProduct = () => {
       if YES: add to that order ("cart"). 
       if NO: add new instance of order.*/}
       <div>
-        {isAdmin && <Link to={`/products/${id}/update`}>Update Product</Link>}
+        {isAdmin && (
+          <>
+            <h4>Admin Mode!</h4>
+            <Link to={`/products/${id}/update`}>Update Product</Link>
+            <button type="button" onClick={handleDelete}>
+              Delete Product
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
