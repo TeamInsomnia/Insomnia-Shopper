@@ -9,7 +9,7 @@ const ProductForm = (props) => {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState("");
   const [material, setMaterial] = useState("");
   const [color, setColor] = useState("");
 
@@ -21,20 +21,17 @@ const ProductForm = (props) => {
     const formData = {
       name,
       description,
-      // todo: price does not work,
-      // it currently is sending nothing to backend ONLY on update
-      price: price * 100,
+      price: parseFloat(price) * 100,
       material,
       color,
     };
+
     if (type === "add") {
       dispatch(addProduct(formData));
     } else if (type === "update") {
       for (let prop in formData) {
-        if (!formData[prop].length || formData[prop] === 0)
-          delete formData[prop];
+        if (!formData[prop]) delete formData[prop];
       }
-      console.log(formData);
       dispatch(updateProduct({ id: productId, formData }));
     }
     setName("");
@@ -55,6 +52,7 @@ const ProductForm = (props) => {
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          required
         />
         <label htmlFor="description">Description: </label>
         <input
@@ -70,7 +68,17 @@ const ProductForm = (props) => {
           step={0.01}
           name="price"
           value={price}
-          onChange={(e) => setPrice(e.target.value)}
+          onChange={(e) => {
+            const decimalIndex = e.target.value.indexOf(".");
+            if (
+              decimalIndex != -1 &&
+              e.target.value.length - decimalIndex >= 3
+            ) {
+              e.target.value = e.target.value.slice(0, decimalIndex + 3);
+            }
+            return setPrice(e.target.value);
+          }}
+          required
         />
         <label htmlFor="material">Material: </label>
         <input

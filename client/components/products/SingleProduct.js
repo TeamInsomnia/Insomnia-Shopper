@@ -28,8 +28,8 @@ const SingleProduct = () => {
 
   const handleButton = () => {};
 
-  const handleDelete = () => {
-    dispatch(deleteProduct(productId));
+  const handleDelete = async () => {
+    await dispatch(deleteProduct(productId));
     navigate("/products");
   };
 
