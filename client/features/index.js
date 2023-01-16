@@ -17,9 +17,14 @@ export {
 } from "./products/singleProductSlice";
 
 export {
-  default as cartReducer, 
+  default as orderDetailsReducer,
   fetchOrderDetailsAsync,
-  fetchSingleOrderDetailAsync, 
-  addExistingToCartAsync, 
-  addNewToCartAsync
-} from './cart/cartSlice';
+  addExistingToCartAsync,
+  addNewToCartAsync,
+} from "./cart/orderDetailsSlice";
+
+export {
+  default as orderReducer,
+  fetchSingleUnpurchasedOrderAsync,
+  createOrder,
+} from "./cart/orderSlice";

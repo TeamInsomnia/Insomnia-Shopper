@@ -4,22 +4,29 @@ const {
 } = require("../db");
 const Product = require("../db/models/Product");
 
+router.post("/", async (req, res, next) => {
+  try {
+    const newOrder = await Order.create(req.body);
+    res.status(201).send(newOrder);
+  } catch (err) {
+    next(err);
+  }
+});
 
 router.get("/:id", async (req, res, next) => {
   try {
     const currentOrder = await Order.findOne({
       where: {
         purchased: false,
-        userId: req.params.id
-      }, 
+        userId: req.params.id,
+      },
       include: {
-        model: Product, 
+        model: Product,
         through: {
-          OrderDetails
-        }
-      }
+          OrderDetails,
+        },
+      },
     });
-    console.log(currentOrder);
     res.send(currentOrder);
   } catch (err) {
     next(err);

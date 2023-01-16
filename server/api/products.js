@@ -17,11 +17,12 @@ router.get("/:id", async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id, {
       include: {
-        model: Order, 
+        model: Order,
         through: {
-          OrderDetails
-        }
-    }});
+          OrderDetails,
+        },
+      },
+    });
     res.send(product);
   } catch (err) {
     next(err);
