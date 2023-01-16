@@ -8,7 +8,6 @@ import {
   fetchSingleUnpurchasedOrderAsync,
   fetchSingleProduct,
   selectSingleProduct,
-  createOrder,
 } from "../../features";
 import { useParams } from "react-router-dom";
 
@@ -28,18 +27,11 @@ const SingleProduct = () => {
 
   useEffect(() => {
     dispatch(fetchSingleProduct(productId));
-    if (cart.id) dispatch(fetchSingleUnpurchasedOrderAsync(id));
+    dispatch(fetchSingleUnpurchasedOrderAsync(id));
   }, [dispatch]);
 
   const handleSubmit = async (event) => {
-    console.log(id);
     event.preventDefault();
-    // if !cart.id; create a new order (send a post request)
-    if (!cart.id) {
-      await dispatch(createOrder(id));
-      await dispatch(fetchSingleProduct(productId));
-    }
-
     if (orders.length && orders[0].userId === id && !orders[0].purchased) {
       let { orderId, quantity } = orders[0].orderDetails;
       quantity += Number(quantityToAdd);

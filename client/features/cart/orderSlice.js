@@ -15,7 +15,6 @@ export const fetchSingleUnpurchasedOrderAsync = createAsyncThunk(
 
 export const createOrder = createAsyncThunk("createOrder", async (userId) => {
   try {
-    console.log(userId);
     const { data } = await axios.post("/api/order", { userId });
     return data;
   } catch (error) {
