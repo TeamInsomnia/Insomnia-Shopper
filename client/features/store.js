@@ -6,6 +6,7 @@ import {
   singleProductReducer,
   orderDetailsReducer,
   orderReducer,
+  allUsersReducer
 } from "./";
 
 const store = configureStore({

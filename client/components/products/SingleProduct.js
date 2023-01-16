@@ -44,7 +44,8 @@ const SingleProduct = () => {
       const orderId = cart.id;
       const productId = singleProduct.id;
       let quantity = Number(quantityToAdd);
-      dispatch(addNewToCartAsync({ orderId, productId, quantity }));
+      await dispatch(addNewToCartAsync({ orderId, productId, quantity }));
+      dispatch(fetchSingleProduct(productId));
     }
     setQuantityToAdd("1");
   }
