@@ -4,10 +4,12 @@ import { Route, Routes } from "react-router-dom";
 import {
   Home,
   AuthForm,
+  AllUsers,
   AllProducts,
   SingleProduct,
   PageNotFound,
   Cart,
+  ProductForm,
 } from "..";
 import { me } from "../../features";
 
@@ -17,6 +19,7 @@ import { me } from "../../features";
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const isAdmin = useSelector((state) => state.auth.me.isAdmin);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,6 +35,19 @@ const AppRoutes = () => {
             <Route path="/login" element={<Home />} />
             <Route path="/signup" element={<Home />} />
 
+            {isAdmin && (
+              <>
+                <Route
+                  path="/products/:productId/update"
+                  element={<ProductForm type="update" />}
+                />
+                <Route
+                  path="/products/add"
+                  element={<ProductForm type="add" />}
+                />
+                <Route path="/users" element={<AllUsers />} />
+              </>
+            )}
             <Route path="/products/" element={<AllProducts />} />
             <Route path="/products/:productId" element={<SingleProduct />} />
 

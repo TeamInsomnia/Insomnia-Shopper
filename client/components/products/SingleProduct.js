@@ -8,18 +8,21 @@ import {
   fetchSingleUnpurchasedOrderAsync,
   fetchSingleProduct,
   selectSingleProduct,
+  deleteProduct,
 } from "../../features";
-import { useParams } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 
 // SingleProduct Component begins here:
 const SingleProduct = () => {
   const [quantityToAdd, setQuantityToAdd] = useState("1");
+  const singleProduct = useSelector(selectSingleProduct);
+  const isAdmin = useSelector((state) => state.auth.me.isAdmin);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { productId } = useParams(); // this grabs the wildcard.
   const { id } = useSelector((state) => state.auth.me);
-
-  const singleProduct = useSelector(selectSingleProduct);
+  
   const cart = useSelector((state) => state.order);
   /* Next: deconstruct the attributes out of singleProduct. 
  Product model lists attributes as name, desc, price, material, color. */
@@ -44,6 +47,11 @@ const SingleProduct = () => {
       dispatch(addNewToCartAsync({ orderId, productId, quantity }));
     }
     setQuantityToAdd("1");
+  }
+  
+  const handleDelete = async () => {
+    await dispatch(deleteProduct(productId));
+    navigate("/products");
   };
 
   // We need a key=__ in this return statement, don't we?
@@ -53,7 +61,7 @@ const SingleProduct = () => {
       <p> Description: {description}.</p>
       <p>
         {" "}
-        Material: {material}. Color: {color}. Price: ${price}.
+        Material: {material}. Color: {color}. Price: ${price / 100}.
       </p>
       {id && (
         <form onSubmit={handleSubmit}>
@@ -72,6 +80,17 @@ const SingleProduct = () => {
       {/* Check: are there any cells under PURCHASED column that says False? 
       if YES: add to that order ("cart"). 
       if NO: add new instance of order.*/}
+      <div>
+        {isAdmin && (
+          <>
+            <h4>Admin Mode!</h4>
+            <Link to={`/products/${id}/update`}>Update Product</Link>
+            <button type="button" onClick={handleDelete}>
+              Delete Product
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 };

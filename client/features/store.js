@@ -11,6 +11,7 @@ import {
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    allUsers: allUsersReducer,
     allProducts: allProductsReducer,
     singleProduct: singleProductReducer,
     orderDetails: orderDetailsReducer,
