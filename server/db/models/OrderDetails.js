@@ -14,16 +14,20 @@ const OrderDetails = db.define("orderDetails", {
   },
 });
 
-const updateOrderDetails = async (instance) => {
+const updateQuantityPrice = async (instance) => {
   const product = await Product.findByPk(instance.productId);
-  const order = await Order.findByPk(instance.orderId);
-  instance.quantity++;
+  // const orders = await OrderDetails.findAll({
+  //   where: {
+  //     orderId: instance.orderId
+  //   }
+  // });
+  // const sum = await orders.sum('quantityPrice');
+  // console.log(sum);
   instance.quantityPrice = product.price * instance.quantity;
-  order.totalPrice += instance.quantityPrice;
-  await order.save();
+  // orders.totalPrice = await orders.sum('quantityPrice');
 };
 
-OrderDetails.beforeCreate(updateOrderDetails);
-OrderDetails.beforeUpdate(updateOrderDetails);
+OrderDetails.beforeCreate(updateQuantityPrice);
+OrderDetails.beforeUpdate(updateQuantityPrice);
 
 module.exports = OrderDetails;

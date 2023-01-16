@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Product },
+  models: { Product, OrderDetails, Order },
 } = require("../db");
 const { requireToken, isAdmin } = require("./gatekeepingMiddleware");
 
@@ -25,7 +25,14 @@ router.post("/", requireToken, isAdmin, async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.id);
+    const product = await Product.findByPk(req.params.id, {
+      include: {
+        model: Order,
+        through: {
+          OrderDetails,
+        },
+      },
+    });
     res.send(product);
   } catch (err) {
     next(err);

@@ -70,7 +70,7 @@ const AppRoutes = () => {
             <Route path="/products/:productId" element={<SingleProduct />} />
           </>
         )}
-        <Route path="/*" element={<PageNotFound />} />
+        <Route path='/*' element={<PageNotFound />} />
       </Routes>
     </div>
   );

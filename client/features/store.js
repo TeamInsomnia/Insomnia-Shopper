@@ -2,10 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 import {
   authReducer,
-  allUsersReducer,
   allProductsReducer,
   singleProductReducer,
-  cartReducer,
+  orderDetailsReducer,
+  orderReducer,
 } from "./";
 
 const store = configureStore({
@@ -14,7 +14,8 @@ const store = configureStore({
     allUsers: allUsersReducer,
     allProducts: allProductsReducer,
     singleProduct: singleProductReducer,
-    cart: cartReducer,
+    orderDetails: orderDetailsReducer,
+    order: orderReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });

@@ -33,35 +33,35 @@ async function seed() {
     Product.create({
       name: "TABLE",
       description: "Elevated flat surface",
-      price: 55672,
+      price: 5,
       material: "stainless steel",
       color: "red",
     }),
     Product.create({
       name: "SOFA",
       description: "Long armchair",
-      price: 314,
+      price: 3,
       material: "luxurious fluff",
       color: "hazelnut",
     }),
     Product.create({
       name: "CHAIR",
       description: "non-standing person rest",
-      price: 8675309,
+      price: 2,
       material: "bamboo",
       color: "vermillion",
     }),
     Product.create({
       name: "NIGHTSTAND",
       description: "drawers + flat surface",
-      price: 8008,
+      price: 1,
       material: "oak",
       color: "indigo",
     }),
     Product.create({
       name: "WORK DESK",
       description: "Table + drawers",
-      price: 272,
+      price: 7,
       material: "adamantium",
       color: "cerulean",
     }),
@@ -70,12 +70,6 @@ async function seed() {
   await Promise.all([
     Order.create({
       userId: 1,
-    }),
-  ]);
-  await Promise.all([
-    OrderDetails.create({
-      orderId: 1,
-      productId: 1,
     }),
   ]);
 
