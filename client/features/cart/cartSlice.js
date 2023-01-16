@@ -65,7 +65,7 @@ export const cartSlice = createSlice({
             return action.payload; 
         })
         builder.addCase(addNewToCartAsync.fulfilled, (state, action)=>{
-            state.push(action.payload);
+            return action.payload;
         })
     }
 })
