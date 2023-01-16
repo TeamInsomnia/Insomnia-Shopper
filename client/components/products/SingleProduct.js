@@ -22,7 +22,7 @@ const SingleProduct = () => {
   const navigate = useNavigate();
   const { productId } = useParams(); // this grabs the wildcard.
   const { id } = useSelector((state) => state.auth.me);
-  
+
   const cart = useSelector((state) => state.order);
   /* Next: deconstruct the attributes out of singleProduct. 
  Product model lists attributes as name, desc, price, material, color. */
@@ -48,8 +48,8 @@ const SingleProduct = () => {
       dispatch(fetchSingleProduct(productId));
     }
     setQuantityToAdd("1");
-  }
-  
+  };
+
   const handleDelete = async () => {
     await dispatch(deleteProduct(productId));
     navigate("/products");
@@ -85,7 +85,7 @@ const SingleProduct = () => {
         {isAdmin && (
           <>
             <h4>Admin Mode!</h4>
-            <Link to={`/products/${id}/update`}>Update Product</Link>
+            <Link to={`/products/${productId}/update`}>Update Product</Link>
             <button type="button" onClick={handleDelete}>
               Delete Product
             </button>

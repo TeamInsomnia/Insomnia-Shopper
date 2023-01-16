@@ -16,7 +16,7 @@ const ProductForm = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = {
       name,
@@ -27,12 +27,12 @@ const ProductForm = (props) => {
     };
 
     if (type === "add") {
-      dispatch(addProduct(formData));
+      await dispatch(addProduct(formData));
     } else if (type === "update") {
       for (let prop in formData) {
         if (!formData[prop]) delete formData[prop];
       }
-      dispatch(updateProduct({ id: productId, formData }));
+      await dispatch(updateProduct({ id: productId, formData }));
     }
     setName("");
     setDescription("");
@@ -52,7 +52,7 @@ const ProductForm = (props) => {
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          required
+          required={type === "add" ? true : false}
         />
         <label htmlFor="description">Description: </label>
         <input
@@ -78,7 +78,7 @@ const ProductForm = (props) => {
             }
             return setPrice(e.target.value);
           }}
-          required
+          required={type === "add" ? true : false}
         />
         <label htmlFor="material">Material: </label>
         <input
