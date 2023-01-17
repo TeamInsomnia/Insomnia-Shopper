@@ -8,20 +8,18 @@ import { useParams } from "react-router-dom";
 // SingleProduct Component begins here:
 const SingleProduct = () => {
   const dispatch = useDispatch();
+  console.log("Use paramz from singleProduct!");
+  console.log(useParams());
   const { productId } = useParams(); // this grabs the wildcard.
 
   const singleProduct = useSelector(selectSingleProduct);
-  /* Next: deconstruct the attributes out of singleProduct. 
- Product model lists attributes as name, desc, price, material, color. */
   const { name, description, price, material, color } = singleProduct;
 
   useEffect(() => {
     dispatch(fetchSingleProduct(productId));
   }, [dispatch]);
 
-  const handleButton = () => {
-    
-  }
+  const handleButton = () => {};
 
   // We need a key=__ in this return statement, don't we?
   return (

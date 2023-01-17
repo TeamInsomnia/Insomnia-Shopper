@@ -8,8 +8,11 @@ import {
   SingleProduct,
   PageNotFound,
   Cart,
+  JoinForm,
+  Profile,
 } from "..";
 import { me } from "../../features";
+// import JoinForm from "../join/JoinForm";
 
 /**
  * COMPONENT
@@ -31,25 +34,23 @@ const AppRoutes = () => {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Home />} />
             <Route path="/signup" element={<Home />} />
-
             <Route path="/products/" element={<AllProducts />} />
             <Route path="/products/:productId" element={<SingleProduct />} />
-
             <Route path="/cart" element={<Cart />} />
+            <Route path="/profile/:userId" element={<Profile />} />
           </>
         ) : (
           <>
             <Route path="/" element={<Home />} />
-
             <Route
               path="/login"
               element={<AuthForm name="login" displayName="Login" />}
             />
             <Route
               path="/signup"
-              element={<AuthForm name="signup" displayName="Join Insomnia." />}
+              // element={<AuthForm name="signup" displayName="Join Insomnia." />}
+              element={<JoinForm />}
             />
-
             <Route path="/products/" element={<AllProducts />} />
             <Route path="/products/:productId" element={<SingleProduct />} />
           </>
