@@ -38,10 +38,9 @@ const SingleProduct = () => {
   // };
 
   const findOrder = (orders) => {
-    console.log(user.id);
-    orders.forEach((elem)=>{
-      if (elem.userId === user.id && elem.purchased === false) return elem
-    })
+    for (const order of orders){
+      if (order.userId === user.id && order.purchased === false) return order;
+    }
   }
 
   useEffect(() => {
@@ -61,7 +60,7 @@ const SingleProduct = () => {
     //   dispatch(fetchSingleProduct(productId));
     // }
     dispatch(fetchSingleUnpurchasedOrderAsync(user.id))
-    console.log(cart);
+    console.log(orders);
 
     // if (orders.length && orders[0].userId === user.id && !orders[0].purchased) {
     //   let { orderId, quantity } = orders[0].orderDetails;
@@ -71,14 +70,12 @@ const SingleProduct = () => {
 
     if (orders.length && cart.userId === user.id && cart.purchased === false) {
       const orderId = cart.id; 
-      const productid = singleProduct.id;
-      // let orderToUpdate = findOrder(orders);
-      // console.log(orderToUpdate);
-      let quantity = orderToUpdate.orderDetails.quantity;
-      quantity += Number(quantityToAdd);
+      const productId = singleProduct.id;
+      const orderToUpdate = findOrder(orders);
+      let currentQuantity = orderToUpdate.orderDetails.quantiy 
+      let quantity = currentQuantity += Number(quantityToAdd);
       await dispatch(addExistingToCartAsync({ orderId, productId, quantity }));
       dispatch(fetchSingleProduct(productId));
-
     } else {
       const orderId = cart.id;
       const productId = singleProduct.id;
