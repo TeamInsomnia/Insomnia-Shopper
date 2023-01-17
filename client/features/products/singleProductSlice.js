@@ -2,8 +2,6 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-// Do we need to create initial state here?
-
 export const fetchSingleProduct = createAsyncThunk(
   "fetchSingleProduct",
   async (id) => {
