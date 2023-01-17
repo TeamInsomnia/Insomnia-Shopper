@@ -1,24 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { AllProducts } from "../";
 
 /**
  * COMPONENT
  */
-const Home = (props) => {
+const Home = () => {
   const username = useSelector((state) => state.auth.me.username);
 
   return (
     <>
-      <h2>Insomnia Furniture</h2>
+      <h1>Insomnia Furniture</h1>
       {username && <h5>Welcome {username}</h5>}
       <img
         src="https://www.weknowboise.com/uploads/shared/images/blog/best-boise-furniture-home-decor-stores.jpg"
-        className="img-fluid"
+        className="img-fluid mb-3"
       />
-      <h3>
-        <Link to="/products">View offerings</Link>
-      </h3>
+      <AllProducts origin="home" />
     </>
   );
 };

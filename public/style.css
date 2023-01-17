@@ -26,3 +26,11 @@ form div {
 nav {
   background-color: #93a8ac;
 }
+
+.navbar-brand {
+  color: #24292e;
+}
+
+.card {
+  width: 18rem;
+}
