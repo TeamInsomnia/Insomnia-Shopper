@@ -38,10 +38,10 @@ const SingleProduct = () => {
   // };
 
   const findOrder = (orders) => {
-    for (const order of orders){
+    for (const order of orders) {
       if (order.userId === user.id && order.purchased === false) return order;
     }
-  }
+  };
 
   useEffect(() => {
     dispatch(fetchSingleProduct(productId));
@@ -50,7 +50,8 @@ const SingleProduct = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!cart){ // For Chris: This makes it so that duplicate carts aren't generated for me
+    if (!cart) {
+      // For Chris: This makes it so that duplicate carts aren't generated for me
       dispatch(createOrder(user.id));
       dispatch(fetchSingleProduct(productId));
     }
@@ -59,8 +60,7 @@ const SingleProduct = () => {
     //   dispatch(createOrder(user.id));
     //   dispatch(fetchSingleProduct(productId));
     // }
-    dispatch(fetchSingleUnpurchasedOrderAsync(user.id))
-    console.log(orders);
+    await dispatch(fetchSingleUnpurchasedOrderAsync(user.id));
 
     // if (orders.length && orders[0].userId === user.id && !orders[0].purchased) {
     //   let { orderId, quantity } = orders[0].orderDetails;
@@ -69,17 +69,20 @@ const SingleProduct = () => {
     //   dispatch(fetchSingleProduct(productId));
 
     if (orders.length && cart.userId === user.id && cart.purchased === false) {
-      const orderId = cart.id; 
-      const productId = singleProduct.id;
+      console.log("created order details incorrectly");
+      // THIS is the line that doesn't work ^
+      // somehow addExistingToCartAsync is running instead of addNewToCartAsync when there are no order details
+      // ALSO there is a bug where this does not work upon first login?
+      const orderId = cart.id;
       const orderToUpdate = findOrder(orders);
-      let currentQuantity = orderToUpdate.orderDetails.quantiy 
-      let quantity = currentQuantity += Number(quantityToAdd);
+      const quantity =
+        orderToUpdate.orderDetails.quantity + Number(quantityToAdd);
       await dispatch(addExistingToCartAsync({ orderId, productId, quantity }));
       dispatch(fetchSingleProduct(productId));
     } else {
+      console.log("created order details correctly");
       const orderId = cart.id;
-      const productId = singleProduct.id;
-      let quantity = Number(quantityToAdd);
+      const quantity = Number(quantityToAdd);
       await dispatch(addNewToCartAsync({ orderId, productId, quantity }));
       dispatch(fetchSingleProduct(productId));
     }
