@@ -35,4 +35,5 @@ export {
   default as orderReducer,
   fetchSingleUnpurchasedOrderAsync,
   createOrder,
+  updatePrice
 } from "./cart/orderSlice";

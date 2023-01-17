@@ -3,6 +3,7 @@ Modeled after allproducts component: */
 
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { fetchSingleUnpurchasedOrderAsync } from "../../features";
 
 const Cart = () => {
@@ -26,12 +27,14 @@ const Cart = () => {
               <div key={product.id}>
                 <p>Product: {product.name}</p>
                 <p>Quantity: {product.orderDetails.quantity}</p>
-                <p>Subtotal: ${product.orderDetails.quantityPrice}</p>
+                <p>Price: ${product.orderDetails.quantityPrice / 100}</p>
                 <p> ----------------------------------------------- </p>
               </div>
             );
           })}
       </div>
+      <div>Subtotal: ${order.products ? order.totalPrice / 100 : 0}</div>
+      {order.products && <Link to='/checkout'>Proceed to Checkout</Link>}
     </div>
   );
 };

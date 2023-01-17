@@ -27,10 +27,45 @@ router.get("/:id", async (req, res, next) => {
         },
       },
     });
+    // await currentOrder.updateTotalPrice();
     res.send(currentOrder);
   } catch (err) {
     next(err);
   }
 });
+
+router.put("/:id", async (req, res, next)=>{
+  try{
+    const order = await Order.findOne({
+      where: {
+        purchased: false,
+        userId: req.params.id
+      }
+    });
+    await order.update({purchased: true});
+    await order.save();
+    res.send(order);
+  }
+  catch (err){
+    next(err);
+  }
+})
+
+router.put("/price/:id", async (req, res, next)=>{
+  try{
+    const order = await Order.findOne({
+      where: {
+        purchased: false,
+        userId: req.params.id
+      }
+    });
+    await order.update({totalPrice}); 
+    await order.save();
+    res.send(order);
+  }
+  catch(err){
+    next(err);
+  }
+})
 
 module.exports = router;

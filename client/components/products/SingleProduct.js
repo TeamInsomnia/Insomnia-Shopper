@@ -8,6 +8,7 @@ import {
   selectSingleProduct,
   deleteProduct,
   createOrder,
+  updatePrice
 } from "../../features";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
@@ -29,6 +30,15 @@ const SingleProduct = () => {
     }
   };
 
+  const calculateTotalPrice = (order) => {
+    const products = order.products; 
+    let totalPrice = 0; 
+    for (const product of products){
+      totalPrice += product.orderDetails.quantityPrice
+    }
+    return totalPrice;
+  }
+
   const checkCartForProduct = (cart) => {
     if (!cart.products) return false;
     for (const cartItem of cart.products) {
@@ -45,8 +55,8 @@ const SingleProduct = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!cart) {
-      const newOrder = await dispatch(createOrder(user.id));
-      dispatch(fetchSingleProduct(productId));
+      const newOrder = await dispatch(createOrder({userId: user.id, totalPrice: 0}));
+      await dispatch(fetchSingleProduct(productId));
       cart = newOrder.payload;
     }
 
@@ -54,21 +64,22 @@ const SingleProduct = () => {
 
     const orderId = cart.id;
     const cartHasItem = checkCartForProduct(cart);
-    if (
-      !orders.orderDetails &&
-      !cartHasItem
-      // && cart.userId === user.id &&
-      // cart.purchased === false
-    ) {
+    
+    if (!orders.orderDetails && !cartHasItem) {
       const quantity = Number(quantityToAdd);
       await dispatch(addNewToCartAsync({ orderId, productId, quantity }));
-      dispatch(fetchSingleProduct(productId));
-    } else {
+      await dispatch(fetchSingleProduct(productId));
+    } 
+    else {
       const orderToUpdate = findOrder(orders);
+      // const currentOrder = dispatch(fetchSingleUnpurchasedOrderAsync(user.id));
+      // console.log(currentOrder);
+      // const totalPrice = calculateTotalPrice(currentOrder);
       const quantity =
         orderToUpdate.orderDetails.quantity + Number(quantityToAdd);
       await dispatch(addExistingToCartAsync({ orderId, productId, quantity }));
-      dispatch(fetchSingleProduct(productId));
+      // await dispatch(updatePrice({id: user.id, totalPrice}));
+      await dispatch(fetchSingleProduct(productId));
     }
     setQuantityToAdd("1");
   };

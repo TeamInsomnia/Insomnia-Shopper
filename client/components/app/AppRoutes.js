@@ -9,7 +9,9 @@ import {
   SingleProduct,
   PageNotFound,
   Cart,
+  Checkout,
   ProductForm,
+  Confirmation
 } from "..";
 import { me } from "../../features";
 
@@ -52,6 +54,8 @@ const AppRoutes = () => {
             <Route path="/products/:productId" element={<SingleProduct />} />
 
             <Route path="/cart" element={<Cart />} />
+            <Route path='/checkout' element={<Checkout />} />
+            <Route path='/confirmation' element={<Confirmation />} />
           </>
         ) : (
           <>
