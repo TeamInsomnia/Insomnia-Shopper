@@ -32,9 +32,7 @@ export const orderSlice = createSlice({
         return action.payload;
       })
       .addCase(createOrder.fulfilled, (state, action) => {
-        const stateCopy = [...state];
-        stateCopy.push(action.payload);
-        return stateCopy;
+        return action.payload;
       });
   },
 });

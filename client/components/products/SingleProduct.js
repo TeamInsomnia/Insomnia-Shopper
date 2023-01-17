@@ -9,6 +9,7 @@ import {
   fetchSingleProduct,
   selectSingleProduct,
   deleteProduct,
+  createOrder,
 } from "../../features";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
@@ -16,26 +17,38 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 const SingleProduct = () => {
   const [quantityToAdd, setQuantityToAdd] = useState("1");
   const singleProduct = useSelector(selectSingleProduct);
-  const isAdmin = useSelector((state) => state.auth.me.isAdmin);
-
+  const user = useSelector((state) => state.auth.me);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { productId } = useParams(); // this grabs the wildcard.
-  const { id } = useSelector((state) => state.auth.me);
 
   const cart = useSelector((state) => state.order);
   /* Next: deconstruct the attributes out of singleProduct. 
  Product model lists attributes as name, desc, price, material, color. */
   const { name, description, price, material, color, orders } = singleProduct;
 
+  const hasNoOngoingOrders = (orders) => {
+    console.log(orders);
+    for (let order of orders) {
+      console.log(order);
+      if (order.purchased === false) return false;
+    }
+    console.log("creation condition met");
+    return true;
+  };
+
   useEffect(() => {
     dispatch(fetchSingleProduct(productId));
-    dispatch(fetchSingleUnpurchasedOrderAsync(id));
+    dispatch(fetchSingleUnpurchasedOrderAsync(user.id));
+    if (hasNoOngoingOrders(user.orders)) {
+      dispatch(createOrder(user.id));
+      dispatch(fetchSingleProduct(productId));
+    }
   }, [dispatch]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (orders.length && orders[0].userId === id && !orders[0].purchased) {
+    if (orders.length && orders[0].userId === user.id && !orders[0].purchased) {
       let { orderId, quantity } = orders[0].orderDetails;
       quantity += Number(quantityToAdd);
       await dispatch(addExistingToCartAsync({ orderId, productId, quantity }));
@@ -64,7 +77,7 @@ const SingleProduct = () => {
         {" "}
         Material: {material}. Color: {color}. Price: ${price / 100}.
       </p>
-      {id && (
+      {user.id && (
         <form onSubmit={handleSubmit}>
           <label htmlFor="quantityToAdd">Quantity</label>
           <input
@@ -82,7 +95,7 @@ const SingleProduct = () => {
       if YES: add to that order ("cart"). 
       if NO: add new instance of order.*/}
       <div>
-        {isAdmin && (
+        {user.isAdmin && (
           <>
             <h4>Admin Mode!</h4>
             <Link to={`/products/${productId}/update`}>Update Product</Link>
