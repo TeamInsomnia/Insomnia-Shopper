@@ -27,32 +27,58 @@ const SingleProduct = () => {
  Product model lists attributes as name, desc, price, material, color. */
   const { name, description, price, material, color, orders } = singleProduct;
 
-  const hasNoOngoingOrders = (orders) => {
-    console.log(orders);
-    for (let order of orders) {
-      console.log(order);
-      if (order.purchased === false) return false;
-    }
-    console.log("creation condition met");
-    return true;
-  };
+  // const hasNoOngoingOrders = (orders) => {
+  //   console.log(orders);
+  //   for (let order of orders) {
+  //     console.log(order);
+  //     if (order.purchased === false) return false;
+  //   }
+  //   console.log("created");
+  //   return true;
+  // };
+
+  const findOrder = (orders) => {
+    console.log(user.id);
+    orders.forEach((elem)=>{
+      if (elem.userId === user.id && elem.purchased === false) return elem
+    })
+  }
 
   useEffect(() => {
     dispatch(fetchSingleProduct(productId));
     dispatch(fetchSingleUnpurchasedOrderAsync(user.id));
-    if (hasNoOngoingOrders(user.orders)) {
-      dispatch(createOrder(user.id));
-      dispatch(fetchSingleProduct(productId));
-    }
   }, [dispatch]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (orders.length && orders[0].userId === user.id && !orders[0].purchased) {
-      let { orderId, quantity } = orders[0].orderDetails;
+    if (!cart){ // For Chris: This makes it so that duplicate carts aren't generated for me
+      dispatch(createOrder(user.id));
+      dispatch(fetchSingleProduct(productId));
+    }
+    // console.log(hasNoOngoingOrders(user.orders));
+    // if (hasNoOngoingOrders(user.orders)) {
+    //   dispatch(createOrder(user.id));
+    //   dispatch(fetchSingleProduct(productId));
+    // }
+    dispatch(fetchSingleUnpurchasedOrderAsync(user.id))
+    console.log(cart);
+
+    // if (orders.length && orders[0].userId === user.id && !orders[0].purchased) {
+    //   let { orderId, quantity } = orders[0].orderDetails;
+    //   quantity += Number(quantityToAdd);
+    //   await dispatch(addExistingToCartAsync({ orderId, productId, quantity }));
+    //   dispatch(fetchSingleProduct(productId));
+
+    if (orders.length && cart.userId === user.id && cart.purchased === false) {
+      const orderId = cart.id; 
+      const productid = singleProduct.id;
+      // let orderToUpdate = findOrder(orders);
+      // console.log(orderToUpdate);
+      let quantity = orderToUpdate.orderDetails.quantity;
       quantity += Number(quantityToAdd);
       await dispatch(addExistingToCartAsync({ orderId, productId, quantity }));
       dispatch(fetchSingleProduct(productId));
+
     } else {
       const orderId = cart.id;
       const productId = singleProduct.id;
