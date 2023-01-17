@@ -15,19 +15,20 @@ const Navbar = () => {
   };
 
   return (
-    <div>
-      <h1>
-        <Link to="/">
-          <i>INSOMNIA FURNITURE</i>
-        </Link>
-      </h1>
-      <nav>
+    <>
+      <nav className="nav">
+        <strong>
+          <Link to="/">Insomnia Furniture</Link>
+        </strong>
         {isLoggedIn ? (
           <div>
             <Link to="/cart">Cart!</Link>
-            <Link to="/products">View offerings.</Link>
-            {isAdmin && <Link to="/users">Admin Mode: View Users</Link>}
-            <button type="button" onClick={logoutAndRedirectHome}>
+            {isAdmin && <Link to="/users">Admin: View Users</Link>}
+            <button
+              type="button"
+              onClick={logoutAndRedirectHome}
+              className="btn btn-outline-danger btn-sm"
+            >
               Logout
             </button>
           </div>
@@ -37,12 +38,10 @@ const Navbar = () => {
             <Link to="/login">Log In</Link>
             <Link to="/signup">Sign Up</Link>
             {/* /cart doesn't exist yet! ~ jw:jan 12@1120 */}
-            <Link to="/products">View offerings.</Link>
           </div>
         )}
       </nav>
-      <hr />
-    </div>
+    </>
   );
 };
 

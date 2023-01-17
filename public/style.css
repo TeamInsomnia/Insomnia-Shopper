@@ -1,4 +1,6 @@
 body {
+  background-color: #fffcff;
+  color: #24292e;
   font-family: sans-serif;
 }
 
@@ -11,6 +13,7 @@ label {
 }
 
 nav a {
+  color: #fffcff;
   display: inline-block;
   margin: 1em;
 }
@@ -18,4 +21,8 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+nav {
+  background-color: #93a8ac;
 }
