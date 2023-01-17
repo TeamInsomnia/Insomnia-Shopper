@@ -36,6 +36,6 @@ export {
 
 export {
   default as singleProfileReducer,
-  fetchSingleProfile,
-  selectSingleProfile,
+  // fetchSingleProfile,
+  // selectSingleProfile,
 } from "./profiles/profileSlice";

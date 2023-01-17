@@ -1,19 +1,36 @@
 // this join form (i.e, register a new user) is modeled after AuthForm.js
 
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { authenticate } from "../../features";
+import { createUser } from "../../features/users/singleUserSlice";
 
 const JoinForm = () => {
-  /* THIS NEEDS DISPATCH AND HANDLESUBMIT!
-  // THIS NEEDS DISPATCH AND HANDLESUBMIT!
-(These buttons are not rigged yet.)
-  */
+  const dispatch = useDispatch();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const username = event.target.desiredUser.value;
+    const password = event.target.password.value;
+    const email = event.target.email.value;
+
+    const user = {
+      username,
+      password,
+      email,
+    };
+
+    dispatch(createUser(user));
+    setUsername("");
+    setPassword("");
+  };
   return (
     <div>
       <h3>Insomnia begins right here, right now.</h3>
-      <form>
+      <form id="createuseform" onSubmit={handleSubmit}>
         <label>
           First name:
           <input type="text" name="firstName" />
@@ -31,8 +48,13 @@ const JoinForm = () => {
           <input type="text" name="addr2" />
         </label>
         <label>
-          Email:
-          <input type="text" name="email" />
+          <b>Email*</b>:
+          <input
+            type="text"
+            name="email"
+            value={email}
+            onChange={(evt) => setEmail(evt.target.value)}
+          />
         </label>
         <label>
           Phone (only digits)
@@ -42,10 +64,10 @@ const JoinForm = () => {
           City:
           <input type="text" name="city" />
         </label>
-        <label>
-          ZIP:
-          <input type="text" name="ZIP" />
-        </label>{" "}
+        {/* <label>
+          ID:
+          <input type="text" name="id" />
+        </label>{" "} */}
         <select>
           <option value="AL">AL</option>
           <option value="AK">AK</option>
@@ -100,8 +122,13 @@ const JoinForm = () => {
           <option value="WY">WY</option>
         </select>
         <label>
-          <b>Desired USERNAME:</b>
-          <input type="text" name="desiredUser" />
+          <b>Desired USERNAME*:</b>
+          <input
+            type="text"
+            name="desiredUser"
+            value={username}
+            onChange={(evt) => setUsername(evt.target.value)}
+          />
         </label>
         <h6>
           <i>
@@ -112,10 +139,15 @@ const JoinForm = () => {
           </i>
         </h6>
         <label>
-          <b> PASSWORD (case-sensitive)</b>:
-          <input type="text" name="password" />
+          <b> PASSWORD* (case-sensitive)</b>:
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(evt) => setPassword(evt.target.value)}
+          />
         </label>{" "}
-        [ fancy Show/Hide button goes here?]{" "}
+        [ fancy Show/Hide button would live here.]{" "}
         <h6>
           {" "}
           <i>
@@ -128,7 +160,7 @@ const JoinForm = () => {
         </h6>
         <label>
           Confirm password:
-          <input type="text" name="confirmPassword" />
+          <input type="password" name="confirmPassword" />
         </label>
         <label>
           <b>Custom</b> challenge question:
@@ -138,34 +170,18 @@ const JoinForm = () => {
           Challenge response (not case sensitive):
           <input type="text" name="challengeGo" />
         </label>
-        <input type="submit" value="Submit for no sleep." />
+        This button will <b>ONLY </b> activate once email, username and password
+        fields are completed. Restrictions on length/format/characters/validity
+        are pending.....<br></br>
+        <input
+          type="submit"
+          disabled={
+            email.length === 0 || username.length === 0 || password.length === 0
+          }
+          value="Submit for no sleep."
+        />
       </form>
     </div>
   );
 };
 export default JoinForm;
-
-/* return (
-    <div>
-      {displayName === "Login" ? <h3>Login</h3> : <h3>Join Insomnia</h3>}
-      {error && <div> {error} </div>}
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="username">
-            <small>Username</small>
-          </label>
-          <input name="username" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-      </form>
-    </div>
-  );
-}; */
