@@ -30,5 +30,6 @@ const updatePrice = async (instance) => {
 OrderDetails.beforeCreate(updatePrice);
 OrderDetails.afterCreate(updatePrice);
 OrderDetails.beforeUpdate(updatePrice);
+OrderDetails.afterDestroy(updatePrice);
 
 module.exports = OrderDetails;

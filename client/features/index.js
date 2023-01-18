@@ -29,6 +29,7 @@ export {
   fetchOrderDetailsAsync,
   addExistingToCartAsync,
   addNewToCartAsync,
+  removeFromCartAsync
 } from "./cart/orderDetailsSlice";
 
 export {
