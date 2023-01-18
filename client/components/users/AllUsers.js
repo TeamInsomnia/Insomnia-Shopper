@@ -14,12 +14,18 @@ const AllUsers = () => {
 
   return (
     <>
-      <h3>ALL USERS</h3>
+      <h1>Admin: View Users</h1>
       {allUsers.map((user) => {
         return (
-          <div key={user.id}>
-            <h4>{user.username}</h4>
-            <div>Email: {user.email}</div>
+          <div key={user.id} className="m-3">
+            <h3>
+              <strong>Username: </strong>
+              {user.username}
+            </h3>
+            <div>
+              <strong>Email: </strong>
+              {user.email}
+            </div>
             {user.isAdmin && <strong>Admin</strong>}
           </div>
         );

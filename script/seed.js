@@ -36,6 +36,8 @@ async function seed() {
       price: 500,
       material: "stainless steel",
       color: "red",
+      imageUrl:
+        "https://secure.img1-cg.wfcdn.com/im/32274058/compr-r85/1530/153082342/geary-round-dining-table.jpg",
     }),
     Product.create({
       name: "SOFA",
@@ -43,6 +45,8 @@ async function seed() {
       price: 300,
       material: "luxurious fluff",
       color: "hazelnut",
+      imageUrl:
+        "https://richmedia.ca-richimage.com/ImageDelivery/imageService?profileId=12026540&id=1743605&recipeId=729",
     }),
     Product.create({
       name: "CHAIR",
@@ -50,6 +54,8 @@ async function seed() {
       price: 200,
       material: "bamboo",
       color: "vermillion",
+      imageUrl:
+        "https://images.costco-static.com/ImageDelivery/imageService?profileId=12026540&itemId=1570087-847&recipeName=680",
     }),
     Product.create({
       name: "NIGHTSTAND",
@@ -57,6 +63,8 @@ async function seed() {
       price: 100,
       material: "oak",
       color: "indigo",
+      imageUrl:
+        "https://assets.pbimgs.com/pbimgs/ab/images/dp/wcm/202232/0102/hudson-26-nightstand-1-z.jpg",
     }),
     Product.create({
       name: "WORK DESK",
@@ -64,14 +72,24 @@ async function seed() {
       price: 700,
       material: "adamantium",
       color: "cerulean",
+      imageUrl:
+        "https://thegadgetflow.com/wp-content/uploads/2019/02/work-desk-2019-feb07-featured-dd.jpeg",
     }),
   ]);
-
-  await Promise.all([
-    Order.create({
-      userId: 1,
-    }),
-  ]);
+  Product.create({
+    name: "BED",
+    description: "Sleepy Surface",
+    price: 3,
+    material: "goose feathers",
+    color: "white",
+    imageUrl:
+      "https://www.ikea.com/us/en/images/products/tufjord-upholstered-bed-frame-djuparp-dark-green__1101321_pe866585_s5.jpg",
+  }),
+    await Promise.all([
+      Order.create({
+        userId: 1,
+      }),
+    ]);
 
   console.log(`seeded ${users.length} users and ${products.length} products.`);
   console.log(`Seeded successfully!*!`);

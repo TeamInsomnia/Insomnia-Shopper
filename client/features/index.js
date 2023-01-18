@@ -11,6 +11,18 @@ export {
 } from "./users/allUsersSlice";
 
 export {
+  default as singleUserReducer,
+  fetchSingleUser,
+  selectSingleUser,
+} from "./users/singleUserSlice";
+
+export {
+  default as singleProfileReducer,
+  fetchProfile,
+  selectProfile,
+} from "./profiles/profileSlice";
+
+export {
   default as allProductsReducer,
   fetchAllProducts,
   addProduct,

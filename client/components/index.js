@@ -2,8 +2,10 @@ export { default as App } from "./app/App";
 export { default as AppRoutes } from "./app/AppRoutes";
 
 export { default as AuthForm } from "./auth/AuthForm";
+export { default as JoinForm } from "./join/JoinForm";
 
 export { default as AllUsers } from "./users/AllUsers";
+export { default as Profile } from "./profiles/Profile";
 
 export { default as Home } from "./static/Home";
 export { default as Navbar } from "./static/Navbar";
