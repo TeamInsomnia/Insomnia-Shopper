@@ -23,6 +23,9 @@ const Product = db.define("product", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  imageUrl: {
+    type: Sequelize.STRING,
+  },
 });
 
 module.exports = Product;
