@@ -53,8 +53,6 @@ const SingleProduct = () => {
       cart = newOrder.payload;
     }
 
-    await dispatch(fetchSingleUnpurchasedOrderAsync(id));
-
     const orderId = cart.id;
     const cartHasItem = checkCartForProduct(cart);
 
@@ -69,6 +67,9 @@ const SingleProduct = () => {
       await dispatch(addExistingToCartAsync({ orderId, productId, quantity }));
       await dispatch(fetchSingleProduct(productId));
     }
+
+    await dispatch(fetchSingleUnpurchasedOrderAsync(id));
+
     setQuantityToAdd("1");
   };
 
@@ -79,6 +80,30 @@ const SingleProduct = () => {
 
   return (
     <div>
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                Added to cart!
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <h1>{name}</h1>
       <div className="d-flex justify-content-center">
         <div className="card">
@@ -104,7 +129,12 @@ const SingleProduct = () => {
                   onChange={(e) => setQuantityToAdd(e.target.value)}
                   className="col-4"
                 />
-                <button type="submit" className="btn btn-outline-primary col-8">
+                <button
+                  type="submit"
+                  className="btn btn-outline-primary col-8"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
                   ADD {name} TO CART.
                 </button>
               </form>
@@ -118,7 +148,7 @@ const SingleProduct = () => {
             <h4>Admin Mode!</h4>
             <Link
               to={`/products/${productId}/update`}
-              className="m-1 btn btn-outline-secondary"
+              className="m-1 btn btn-secondary"
             >
               Update Product
             </Link>

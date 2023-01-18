@@ -31,6 +31,10 @@ nav {
   color: #24292e;
 }
 
+.list-group-item {
+  background-color: #fffcff;
+}
+
 #all-products-card {
   width: 18rem;
 }

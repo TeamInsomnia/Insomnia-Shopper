@@ -1,44 +1,61 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchSingleUnpurchasedOrderAsync, purchaseOrder } from "../../features/cart/orderSlice";
+import {
+  fetchSingleUnpurchasedOrderAsync,
+  purchaseOrder,
+} from "../../features/cart/orderSlice";
 
 const Checkout = () => {
-    const {id} = useSelector((state)=>state.auth.me);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const order = useSelector((state) => state.order);
+  const { id } = useSelector((state) => state.auth.me);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const order = useSelector((state) => state.order);
 
-    useEffect(() => {
-        dispatch(fetchSingleUnpurchasedOrderAsync(id));
-      }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchSingleUnpurchasedOrderAsync(id));
+  }, [dispatch]);
 
-    const handleSubmit = () => {
-        // order.setIsPurchased();
-        dispatch(purchaseOrder(id));
-        navigate('/confirmation');
-    }
+  const handleSubmit = () => {
+    // order.setIsPurchased();
+    dispatch(purchaseOrder(id));
+    navigate("/confirmation");
+  };
 
-    return(
-        <>
-        <h1>Please review your order below:</h1>
-        <div>
+  return (
+    <>
+      <h1>Please review your order below:</h1>
+      <ul className="list-group list-group-flush">
         {order.products &&
           order.products.map((product) => {
             return (
-              <ul key={product.id}>
+              <li key={product.id} className="list-group-item">
                 {product.name}
-                <li>Quantity: {product.orderDetails.quantity}</li>
-                <li>Price: ${product.orderDetails.quantityPrice / 100}</li>
-                <p> ----------------------------------------------- </p>
-              </ul>
+                <div>
+                  <strong>Quantity:</strong> {product.orderDetails.quantity}
+                </div>
+                <div>
+                  <strong>Price:</strong> $
+                  {product.orderDetails.quantityPrice / 100}
+                </div>
+              </li>
             );
           })}
+      </ul>
+      <div className="d-flex justify-content-end align-items-center">
+        <div className="m-2">Total: ${order.totalPrice / 100}</div>
+        {order.products && (
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            className="m-2 btn btn-outline-primary"
+          >
+            Place Order
+          </button>
+        )}
       </div>
-      <div>Total: ${order.totalPrice / 100}</div>
-        {order.products && <button type='submit' onClick={handleSubmit}>Place Order</button>}
-        </>
-    )
-}
+    </>
+  );
+};
 
-export default Checkout; 
+export default Checkout;
