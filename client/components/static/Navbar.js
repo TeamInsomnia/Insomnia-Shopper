@@ -39,6 +39,7 @@ const Navbar = () => {
                   <Link to="/cart">Cart!</Link>
                   <Link to="/products">View products</Link>
                   {isAdmin && <Link to="/users">Admin: View Users</Link>}
+                  <Link to="/profile">Profile</Link>
                   <button
                     type="button"
                     onClick={logoutAndRedirectHome}
