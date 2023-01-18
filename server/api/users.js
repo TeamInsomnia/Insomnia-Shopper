@@ -27,14 +27,4 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
-  try {
-    const newUser = await User.create(req.body);
-    res.send(newUser);
-    return newUser;
-  } catch (err) {
-    next(err);
-  }
-});
-
 module.exports = router;
