@@ -7,24 +7,13 @@ import { useParams } from "react-router-dom";
 // Profile Component begins here:
 const Profile = () => {
   const dispatch = useDispatch();
-  console.log("USE PARAMZ");
-  console.log(useParams());
-  const { userId } = useParams(); // snatch the wildcard.
-
-  const singleUser = useSelector(selectSingleUser);
-  console.log(singleUser);
-  const { username, email } = singleUser;
-
-  useEffect(() => {
-    dispatch(fetchSingleUser(userId));
-  }, [dispatch]);
-
+  const { username, email } = useSelector((state) => state.auth.me);
   return (
     <div>
       {" "}
-      <h2>Member Information.</h2>
-      <h3>Full name and address:</h3>
-      <h4>Other details coming soon.....</h4>
+      <h2>MEMBER INFORMATION.</h2>
+      <h4>Username: {username} </h4>
+      <h4>Email: {email}</h4>
     </div>
   );
 };
