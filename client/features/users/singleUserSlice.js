@@ -15,21 +15,6 @@ export const fetchSingleUser = createAsyncThunk(
   }
 );
 
-// need an async Thunk to create a new user.
-
-export const createUser = createAsyncThunk(
-  "createUser",
-  async (newUserInfo) => {
-    try {
-      const newUser = await axios.post(`/api/users`, newUserInfo);
-      return newUserInfo.data;
-      // this still needs back-end restriction and validation.
-    } catch (err) {
-      console.log(err);
-    }
-  }
-);
-
 ///////////
 
 export const singleUserSlice = createSlice({
