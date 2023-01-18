@@ -1,6 +1,3 @@
-/* CART component (placeholder for now). 
-Modeled after allproducts component: */
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";

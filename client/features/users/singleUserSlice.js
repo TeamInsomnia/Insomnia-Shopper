@@ -30,6 +30,16 @@ export const createUser = createAsyncThunk(
   }
 );
 
+export const fetchOrderHistory = createAsyncThunk('/users/history', async(id)=>{
+  try{
+    const { data } = await axios.get(`/api/users/history/${id}`);
+    return data; 
+  }
+  catch (error){
+    console.error(error);
+  }
+})
+
 ///////////
 
 export const singleUserSlice = createSlice({
@@ -43,11 +53,10 @@ export const singleUserSlice = createSlice({
     builder.addCase(createUser.fulfilled, (state, action) => {
       return action.payload;
     });
+    builder.addCase(fetchOrderHistory.fulfilled, (state, action)=>{
+      return action.payload;
+    })
   },
 });
-
-export const selectSingleUser = (state) => {
-  return state.singleUser;
-};
 
 export default singleUserSlice.reducer;

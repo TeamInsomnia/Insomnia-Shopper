@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { User },
+  models: { User, Order },
 } = require("../db");
 module.exports = router;
 
@@ -31,10 +31,29 @@ router.post("/", async (req, res, next) => {
   try {
     const newUser = await User.create(req.body);
     res.send(newUser);
-    return newUser;
   } catch (err) {
     next(err);
   }
 });
+
+router.get("/history/:id", async(req, res, next)=>{
+  try{
+    const userWithHistory = await User.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: {
+        model: Order,
+        where: {
+          purchased: true
+        }
+      },
+    });
+    res.send(userWithHistory);
+  }
+  catch(err){
+    next(err)
+  }
+})
 
 module.exports = router;

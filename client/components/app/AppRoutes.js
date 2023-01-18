@@ -14,6 +14,7 @@ import {
   Confirmation,
   JoinForm,
   Profile,
+  OrderHistory
 } from "..";
 import { me } from "../../features";
 // import JoinForm from "../join/JoinForm";
@@ -59,6 +60,7 @@ const AppRoutes = () => {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/confirmation" element={<Confirmation />} />
             <Route path="/profile/" element={<Profile />} />
+            <Route path='/history/:id' element={<OrderHistory />} />
           </>
         ) : (
           <>
