@@ -14,21 +14,19 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 const SingleProduct = () => {
   const [quantityToAdd, setQuantityToAdd] = useState("1");
   const singleProduct = useSelector(selectSingleProduct);
-  const user = useSelector((state) => state.auth.me);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { productId } = useParams();
 
+  const { id, isAdmin } = useSelector((state) => state.auth.me);
+
   let cart = useSelector((state) => state.order);
-
-
-  const cart = useSelector((state) => state.order);
   const { name, description, price, material, color, imageUrl, orders } =
     singleProduct;
 
   const findOrder = (orders) => {
     for (const order of orders) {
-      if (order.userId === user.id && order.purchased === false) return order;
+      if (order.userId === id && order.purchased === false) return order;
     }
   };
 
@@ -42,28 +40,29 @@ const SingleProduct = () => {
 
   useEffect(() => {
     dispatch(fetchSingleProduct(productId));
-    dispatch(fetchSingleUnpurchasedOrderAsync(user.id));
+    id && dispatch(fetchSingleUnpurchasedOrderAsync(id));
   }, [dispatch]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!cart) {
-      const newOrder = await dispatch(createOrder({userId: user.id, totalPrice: 0}));
+      const newOrder = await dispatch(
+        createOrder({ userId: id, totalPrice: 0 })
+      );
       await dispatch(fetchSingleProduct(productId));
       cart = newOrder.payload;
     }
 
-    await dispatch(fetchSingleUnpurchasedOrderAsync(user.id));
+    await dispatch(fetchSingleUnpurchasedOrderAsync(id));
 
     const orderId = cart.id;
     const cartHasItem = checkCartForProduct(cart);
-    
+
     if (!orders.orderDetails && !cartHasItem) {
       const quantity = Number(quantityToAdd);
       await dispatch(addNewToCartAsync({ orderId, productId, quantity }));
       await dispatch(fetchSingleProduct(productId));
-    } 
-    else {
+    } else {
       const orderToUpdate = findOrder(orders);
       const quantity =
         orderToUpdate.orderDetails.quantity + Number(quantityToAdd);
