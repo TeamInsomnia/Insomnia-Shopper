@@ -71,8 +71,7 @@ const AppRoutes = () => {
             />
             <Route
               path="/signup"
-              // element={<AuthForm name="signup" displayName="Join Insomnia." />}
-              element={<JoinForm />}
+              element={<AuthForm name="signup" displayName="Join Insomnia." />}
             />
             <Route path="/products/" element={<AllProducts />} />
             <Route path="/products/:productId" element={<SingleProduct />} />

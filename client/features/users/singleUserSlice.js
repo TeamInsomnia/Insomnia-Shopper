@@ -1,5 +1,3 @@
-// SINGLE USER SLICE FOLLOWS:
-
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
@@ -14,8 +12,6 @@ export const fetchSingleUser = createAsyncThunk(
     }
   }
 );
-
-// need an async Thunk to create a new user.
 
 export const createUser = createAsyncThunk(
   "createUser",
@@ -40,7 +36,6 @@ export const fetchOrderHistory = createAsyncThunk('/users/history', async(id)=>{
   }
 })
 
-///////////
 
 export const singleUserSlice = createSlice({
   name: "singleUserSlice",
