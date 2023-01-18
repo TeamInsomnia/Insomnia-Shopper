@@ -6,7 +6,6 @@ const OrderHistory = () => {
 
     const {id} = useSelector((state)=>state.auth.me);
     const dispatch = useDispatch();
-    console.log(id);
 
     const {orders} = useSelector((state)=>state.singleUser);
 
@@ -14,10 +13,19 @@ const OrderHistory = () => {
         dispatch(fetchOrderHistory(id))
     }, [dispatch, id]);
 
-    console.log(orders);
-
     return (
-        <h1>{}</h1>
+        <>
+        <h1>Order History</h1>
+        <div>{orders && orders.map((order)=>{
+            return(
+                <div key={order.id}>
+                <p>Order Confirmation #{order.confirmationNumber}</p>
+                <p>Total: ${order.totalPrice / 100}</p>
+                <p> ----------------------------- </p>
+                </div>
+            )
+        })}</div>
+        </> 
     )
 }
 
