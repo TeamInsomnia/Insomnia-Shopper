@@ -51,4 +51,18 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.delete("/:id", async (req, res, next)=>{
+  try{
+    const orderDetail = await OrderDetails.findOne({
+      where: {
+        productId: req.params.id
+      }
+    })
+    res.status(202).send(await orderDetail.destroy());
+  }
+  catch (err){
+    next(err);
+  }
+})
+
 module.exports = router;

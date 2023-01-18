@@ -1,5 +1,3 @@
-// WANG: TASK: CREATE SINGLEPRODUCT.JS, modeled on AllProducts.js
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,44 +7,68 @@ import {
   fetchSingleProduct,
   selectSingleProduct,
   deleteProduct,
+  createOrder,
 } from "../../features";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
-// SingleProduct Component begins here:
 const SingleProduct = () => {
   const [quantityToAdd, setQuantityToAdd] = useState("1");
   const singleProduct = useSelector(selectSingleProduct);
-  const isAdmin = useSelector((state) => state.auth.me.isAdmin);
-
+  const user = useSelector((state) => state.auth.me);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { productId } = useParams(); // this grabs the wildcard.
-  const { id } = useSelector((state) => state.auth.me);
+  const { productId } = useParams();
+
+  let cart = useSelector((state) => state.order);
+
 
   const cart = useSelector((state) => state.order);
-  /* Next: deconstruct the attributes out of singleProduct. 
- Product model lists attributes as name, desc, price, material, color. */
   const { name, description, price, material, color, imageUrl, orders } =
     singleProduct;
 
+  const findOrder = (orders) => {
+    for (const order of orders) {
+      if (order.userId === user.id && order.purchased === false) return order;
+    }
+  };
+
+  const checkCartForProduct = (cart) => {
+    if (!cart.products) return false;
+    for (const cartItem of cart.products) {
+      if (cartItem.id === Number(productId)) return true;
+    }
+    return false;
+  };
+
   useEffect(() => {
     dispatch(fetchSingleProduct(productId));
-    dispatch(fetchSingleUnpurchasedOrderAsync(id));
+    dispatch(fetchSingleUnpurchasedOrderAsync(user.id));
   }, [dispatch]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (orders.length && orders[0].userId === id && !orders[0].purchased) {
-      let { orderId, quantity } = orders[0].orderDetails;
-      quantity += Number(quantityToAdd);
-      await dispatch(addExistingToCartAsync({ orderId, productId, quantity }));
-      dispatch(fetchSingleProduct(productId));
-    } else {
-      const orderId = cart.id;
-      const productId = singleProduct.id;
-      let quantity = Number(quantityToAdd);
+    if (!cart) {
+      const newOrder = await dispatch(createOrder({userId: user.id, totalPrice: 0}));
+      await dispatch(fetchSingleProduct(productId));
+      cart = newOrder.payload;
+    }
+
+    await dispatch(fetchSingleUnpurchasedOrderAsync(user.id));
+
+    const orderId = cart.id;
+    const cartHasItem = checkCartForProduct(cart);
+    
+    if (!orders.orderDetails && !cartHasItem) {
+      const quantity = Number(quantityToAdd);
       await dispatch(addNewToCartAsync({ orderId, productId, quantity }));
-      dispatch(fetchSingleProduct(productId));
+      await dispatch(fetchSingleProduct(productId));
+    } 
+    else {
+      const orderToUpdate = findOrder(orders);
+      const quantity =
+        orderToUpdate.orderDetails.quantity + Number(quantityToAdd);
+      await dispatch(addExistingToCartAsync({ orderId, productId, quantity }));
+      await dispatch(fetchSingleProduct(productId));
     }
     setQuantityToAdd("1");
   };
@@ -56,7 +78,6 @@ const SingleProduct = () => {
     navigate("/products");
   };
 
-  // We need a key=__ in this return statement, don't we?
   return (
     <div>
       <h1>{name}</h1>

@@ -45,6 +45,18 @@ export const addNewToCartAsync = createAsyncThunk(
   }
 );
 
+export const removeFromCartAsync = createAsyncThunk('/removeFromCart', async(id)=>{
+  try{
+    const token = window.localStorage.getItem("token");
+    await axios.delete(`/api/orderDetails/${id}`, {
+      headers: { authorization: token },
+    });
+  }
+  catch (error){
+    console.error(error)
+  }
+})
+
 export const orderDetailsSlice = createSlice({
   name: "orderDetailsSlice",
   initialState: [],
@@ -59,6 +71,9 @@ export const orderDetailsSlice = createSlice({
     builder.addCase(addNewToCartAsync.fulfilled, (state, action) => {
       return action.payload;
     });
+    builder.addCase(removeFromCartAsync.fulfilled, (state, action)=>{
+      return action.payload; 
+    })
   },
 });
 

@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 const Product = require("./Product");
-const Order = require("./Order");
+const Order = require('./Order')
 
 const OrderDetails = db.define("orderDetails", {
   quantity: {
@@ -14,20 +14,22 @@ const OrderDetails = db.define("orderDetails", {
   },
 });
 
-const updateQuantityPrice = async (instance) => {
+const updatePrice = async (instance) => {
   const product = await Product.findByPk(instance.productId);
-  // const orders = await OrderDetails.findAll({
-  //   where: {
-  //     orderId: instance.orderId
-  //   }
-  // });
-  // const sum = await orders.sum('quantityPrice');
-  // console.log(sum);
   instance.quantityPrice = product.price * instance.quantity;
-  // orders.totalPrice = await orders.sum('quantityPrice');
+  let sum = await OrderDetails.sum('quantityPrice', {
+    where: {
+      orderId: instance.orderId
+    }
+  })
+  const order = await Order.findByPk(instance.orderId);
+  await order.update({totalPrice: sum});
+
 };
 
-OrderDetails.beforeCreate(updateQuantityPrice);
-OrderDetails.beforeUpdate(updateQuantityPrice);
+OrderDetails.beforeCreate(updatePrice);
+OrderDetails.afterCreate(updatePrice);
+OrderDetails.beforeUpdate(updatePrice);
+OrderDetails.afterDestroy(updatePrice);
 
 module.exports = OrderDetails;

@@ -41,10 +41,12 @@ export {
   fetchOrderDetailsAsync,
   addExistingToCartAsync,
   addNewToCartAsync,
+  removeFromCartAsync
 } from "./cart/orderDetailsSlice";
 
 export {
   default as orderReducer,
   fetchSingleUnpurchasedOrderAsync,
   createOrder,
+  updatePrice
 } from "./cart/orderSlice";

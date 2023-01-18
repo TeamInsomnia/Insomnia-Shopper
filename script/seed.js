@@ -33,7 +33,7 @@ async function seed() {
     Product.create({
       name: "TABLE",
       description: "Elevated flat surface",
-      price: 5,
+      price: 500,
       material: "stainless steel",
       color: "red",
       imageUrl:
@@ -42,7 +42,7 @@ async function seed() {
     Product.create({
       name: "SOFA",
       description: "Long armchair",
-      price: 3,
+      price: 300,
       material: "luxurious fluff",
       color: "hazelnut",
       imageUrl:
@@ -51,7 +51,7 @@ async function seed() {
     Product.create({
       name: "CHAIR",
       description: "non-standing person rest",
-      price: 2,
+      price: 200,
       material: "bamboo",
       color: "vermillion",
       imageUrl:
@@ -60,7 +60,7 @@ async function seed() {
     Product.create({
       name: "NIGHTSTAND",
       description: "drawers + flat surface",
-      price: 1,
+      price: 100,
       material: "oak",
       color: "indigo",
       imageUrl:
@@ -69,7 +69,7 @@ async function seed() {
     Product.create({
       name: "WORK DESK",
       description: "Table + drawers",
-      price: 7,
+      price: 700,
       material: "adamantium",
       color: "cerulean",
       imageUrl:
