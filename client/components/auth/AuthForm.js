@@ -16,7 +16,11 @@ const AuthForm = ({ name, displayName }) => {
 
   return (
     <div>
-      {displayName === "Login" ? <h3>Login</h3> : <h3>Join Insomnia</h3>}
+      {displayName === "Login" ? (
+        <h1 className="mt-3">Login</h1>
+      ) : (
+        <h1 className="mt-3">Join Insomnia</h1>
+      )}
       {error && <div> {error} </div>}
       <form onSubmit={handleSubmit} name={name}>
         <div>
@@ -32,7 +36,9 @@ const AuthForm = ({ name, displayName }) => {
           <input name="password" type="password" />
         </div>
         <div>
-          <button type="submit">{displayName}</button>
+          <button type="submit" className="btn btn-outline-primary">
+            {displayName}
+          </button>
         </div>
       </form>
     </div>

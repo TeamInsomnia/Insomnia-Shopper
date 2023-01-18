@@ -16,11 +16,15 @@ const AllProducts = (props) => {
 
   return (
     <>
-      {props.origin && <h1>All Products</h1>}
+      {!props.origin && <h1>All Products</h1>}
       <div className="row d-flex justify-content-center">
         {allProducts.map((product) => {
           return (
-            <div key={product.id} className="card col-3">
+            <div
+              key={product.id}
+              id="all-products-card"
+              className="card col-3 m-2"
+            >
               <img
                 src={product.imageUrl}
                 className="card-img-top"
@@ -38,10 +42,10 @@ const AllProducts = (props) => {
         })}
         <div>
           {isAdmin && (
-            <>
+            <div className="m-3">
               <h4>Admin Mode!</h4>
               <Link to={`/products/add`}>Add a Product</Link>
-            </>
+            </div>
           )}
         </div>
       </div>
