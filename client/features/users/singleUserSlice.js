@@ -33,9 +33,6 @@ export const singleUserSlice = createSlice({
     builder.addCase(fetchSingleUser.fulfilled, (state, action) => {
       return action.payload;
     });
-    builder.addCase(createUser.fulfilled, (state, action) => {
-      return action.payload;
-    });
     builder.addCase(fetchOrderHistory.fulfilled, (state, action) => {
       return action.payload;
     });

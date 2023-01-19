@@ -49,4 +49,5 @@ export {
   fetchSingleUnpurchasedOrderAsync,
   createOrder,
   purchaseOrder,
+  updateOrderConfirmation
 } from "./cart/orderSlice";

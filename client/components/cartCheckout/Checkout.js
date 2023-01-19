@@ -5,7 +5,7 @@ import {
   fetchSingleUnpurchasedOrderAsync,
   purchaseOrder,
   updateOrderConfirmation,
-} from "../../features/cart/orderSlice";
+} from "../../features";
 import { v4 as uuidv4 } from "uuid";
 
 const Checkout = () => {
