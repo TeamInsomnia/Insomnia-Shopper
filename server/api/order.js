@@ -49,7 +49,7 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-router.put("/price/:id", async (req, res, next) => {
+router.put("/confirm/:id", async (req, res, next) => {
   try {
     const order = await Order.findOne({
       where: {
@@ -57,7 +57,7 @@ router.put("/price/:id", async (req, res, next) => {
         userId: req.params.id,
       },
     });
-    await order.update({ totalPrice });
+    await order.update(req.body);
     await order.save();
     res.send(order);
   } catch (err) {

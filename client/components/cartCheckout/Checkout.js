@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import {
   fetchSingleUnpurchasedOrderAsync,
   purchaseOrder,
-} from "../../features";
+  updateOrderConfirmation,
+} from "../../features/cart/orderSlice";
+import { v4 as uuidv4 } from "uuid";
 
 const Checkout = () => {
   const { id } = useSelector((state) => state.auth.me);
@@ -15,9 +17,12 @@ const Checkout = () => {
 
   useEffect(() => {
     dispatch(fetchSingleUnpurchasedOrderAsync(id));
+    if (!order.products) navigate("/notFound"); // prevent user from manually navigating
   }, [dispatch]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const confirmationNumber = uuidv4().slice(0, 8);
+    await dispatch(updateOrderConfirmation({ id, confirmationNumber }));
     dispatch(purchaseOrder(id));
     navigate("/confirmation");
   };

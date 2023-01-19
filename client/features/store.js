@@ -6,13 +6,15 @@ import {
   singleProductReducer,
   orderDetailsReducer,
   orderReducer,
-  allUsersReducer
+  allUsersReducer,
+  singleUserReducer
 } from "./";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     allUsers: allUsersReducer,
+    singleUser: singleUserReducer,
     allProducts: allProductsReducer,
     singleProduct: singleProductReducer,
     orderDetails: orderDetailsReducer,

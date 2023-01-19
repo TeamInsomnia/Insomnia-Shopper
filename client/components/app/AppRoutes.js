@@ -14,6 +14,7 @@ import {
   Confirmation,
   JoinForm,
   Profile,
+  OrderHistory
 } from "..";
 import { me } from "../../features";
 
@@ -55,6 +56,7 @@ const AppRoutes = () => {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/confirmation" element={<Confirmation />} />
             <Route path="/profile/" element={<Profile />} />
+            <Route path='/history/:id' element={<OrderHistory />} />
           </>
         ) : (
           <>
@@ -65,8 +67,7 @@ const AppRoutes = () => {
             />
             <Route
               path="/signup"
-              // element={<AuthForm name="signup" displayName="Join Insomnia." />}
-              element={<JoinForm />}
+              element={<AuthForm name="signup" displayName="Join Insomnia." />}
             />
             <Route path="/products/" element={<AllProducts />} />
             <Route path="/products/:productId" element={<SingleProduct />} />

@@ -25,27 +25,16 @@ export const createOrder = createAsyncThunk(
   }
 );
 
-export const purchaseOrder = createAsyncThunk("/purchaseOrder", async (id) => {
-  try {
-    const { data } = await axios.put(`/api/order/${id}`);
+export const purchaseOrder = createAsyncThunk('/purchaseOrder', async(id) =>{
+  try{
+    const {data} = await axios.put(`/api/order/${id}`); 
     console.log(data);
-    return data;
-  } catch (error) {
+    return data; 
+  }
+  catch (error){
     console.error(error);
   }
 });
-
-export const updatePrice = createAsyncThunk(
-  "/updatePrice",
-  async ({ id, totalPrice }) => {
-    try {
-      const { data } = await axios.put(`api/order/${id}`, { totalPrice });
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-);
 
 export const orderSlice = createSlice({
   name: "orderSlice",
@@ -62,9 +51,6 @@ export const orderSlice = createSlice({
       .addCase(purchaseOrder.fulfilled, (state, action) => {
         return action.payload;
       })
-      .addCase(updatePrice.fulfilled, (state, action) => {
-        return action.payload;
-      });
   },
 });
 

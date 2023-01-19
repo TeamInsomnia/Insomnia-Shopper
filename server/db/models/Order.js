@@ -10,6 +10,9 @@ const Order = db.define("order", {
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },
+  confirmationNumber: {
+    type: Sequelize.STRING
+  }
 });
 
 module.exports = Order;
