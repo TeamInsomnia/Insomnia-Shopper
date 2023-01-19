@@ -13,29 +13,17 @@ export const fetchSingleUser = createAsyncThunk(
   }
 );
 
-export const createUser = createAsyncThunk(
-  "createUser",
-  async (newUserInfo) => {
+export const fetchOrderHistory = createAsyncThunk(
+  "/users/history",
+  async (id) => {
     try {
-      const newUser = await axios.post(`/api/users`, newUserInfo);
-      return newUserInfo.data;
-      // this still needs back-end restriction and validation.
-    } catch (err) {
-      console.log(err);
+      const { data } = await axios.get(`/api/users/history/${id}`);
+      return data;
+    } catch (error) {
+      console.error(error);
     }
   }
 );
-
-export const fetchOrderHistory = createAsyncThunk('/users/history', async(id)=>{
-  try{
-    const { data } = await axios.get(`/api/users/history/${id}`);
-    return data; 
-  }
-  catch (error){
-    console.error(error);
-  }
-})
-
 
 export const singleUserSlice = createSlice({
   name: "singleUserSlice",
@@ -48,9 +36,9 @@ export const singleUserSlice = createSlice({
     builder.addCase(createUser.fulfilled, (state, action) => {
       return action.payload;
     });
-    builder.addCase(fetchOrderHistory.fulfilled, (state, action)=>{
+    builder.addCase(fetchOrderHistory.fulfilled, (state, action) => {
       return action.payload;
-    })
+    });
   },
 });
 

@@ -13,7 +13,7 @@ export {
 export {
   default as singleUserReducer,
   fetchSingleUser,
-  fetchOrderHistory
+  fetchOrderHistory,
 } from "./users/singleUserSlice";
 
 export {
@@ -48,5 +48,5 @@ export {
   default as orderReducer,
   fetchSingleUnpurchasedOrderAsync,
   createOrder,
-  updateOrderConfirmation, 
+  purchaseOrder,
 } from "./cart/orderSlice";

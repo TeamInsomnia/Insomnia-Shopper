@@ -1,29 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { addExistingToCartAsync, fetchSingleUnpurchasedOrderAsync, removeFromCartAsync } from "../../features";
+import {
+  addExistingToCartAsync,
+  fetchSingleUnpurchasedOrderAsync,
+  removeFromCartAsync,
+} from "../../features";
 
 const Cart = () => {
+  const [quantityToAdd, setQuantityToAdd] = useState("");
+  const [showForm, setShowForm] = useState(0);
+
   const { id } = useSelector((state) => state.auth.me);
-  const dispatch = useDispatch();
   const order = useSelector((state) => state.order);
-  const [quantityToAdd, setQuantityToAdd] = useState('1');
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchSingleUnpurchasedOrderAsync(id));
   }, [dispatch]);
 
   const handleSubmit = async (productId) => {
-    let quantity = Number(quantityToAdd); 
-    await dispatch(addExistingToCartAsync({orderId: order.id, productId, quantity}));
-    setQuantityToAdd('1');
+    let quantity = Number(quantityToAdd);
+    await dispatch(
+      addExistingToCartAsync({ orderId: order.id, productId, quantity })
+    );
+    setQuantityToAdd("");
+    setShowForm(0);
     dispatch(fetchSingleUnpurchasedOrderAsync(id));
-  }
+  };
 
   const handleDelete = async (productId) => {
     await dispatch(removeFromCartAsync(productId));
     dispatch(fetchSingleUnpurchasedOrderAsync(id));
-  }
+  };
 
   return (
     <div>
@@ -31,42 +41,90 @@ const Cart = () => {
         There are {order.products ? order.products.length : 0} items in your
         cart
       </h3>
-      <div>
+      <ul className="list-group list-group-flush">
         {order.products &&
           order.products.map((product) => {
             return (
-              <div key={product.id}>
-                <p>Product: {product.name}</p>
-                <p>Quantity: {product.orderDetails.quantity}</p>
-
-                <form onSubmit={(event)=>{
-                  event.preventDefault();
-                  handleSubmit(product.id)
-                }}>
-                    <label htmlFor="quantityToAdd">Quantity</label>
-                    <input
-                      type="number"
-                      min={1}
-                      max={20}
-                      name="quantityToAdd"
-                      value={quantityToAdd}
-                      onChange={(e) => setQuantityToAdd(e.target.value)}
-                    />
-                <button type="submit">Update Quantity</button>
+              <li key={product.id} className="list-group-item">
+                <div>
+                  <strong>Product:</strong> {product.name}
+                </div>
+                <div>
+                  <strong>Quantity:</strong> {product.orderDetails.quantity}
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    className={
+                      showForm === product.id
+                        ? "visually-hidden"
+                        : "btn btn-secondary m-1"
+                    }
+                    onClick={() => {
+                      setShowForm(product.id);
+                      setQuantityToAdd(product.orderDetails.quantity);
+                    }}
+                  >
+                    Update Quantity
+                  </button>
+                </div>
+                <form
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    handleSubmit(product.id);
+                  }}
+                  className={showForm !== product.id ? "visually-hidden" : ""}
+                >
+                  <input
+                    type="number"
+                    min={1}
+                    max={20}
+                    name="quantityToAdd"
+                    value={quantityToAdd}
+                    onChange={(e) => setQuantityToAdd(e.target.value)}
+                    className="m-1"
+                  />
+                  <button type="submit" className="btn btn-outline-primary m-1">
+                    Update Quantity
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-danger"
+                    onClick={() => setShowForm(0)}
+                  >
+                    X
+                  </button>
                 </form>
-                <button type="button" onClick={(event)=>{
-                  event.preventDefault();
-                  handleDelete(product.id);
-                }}>Remove</button>
-
+                <div>
+                  <button
+                    type="button"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      handleDelete(product.id);
+                    }}
+                    className="btn btn-outline-danger m-1"
+                  >
+                    Remove From Cart
+                  </button>
+                </div>
                 <p>Price: ${product.orderDetails.quantityPrice / 100}</p>
-                <p> ----------------------------------------------- </p>
-              </div>
+              </li>
             );
           })}
-      </div>
-      <div>Subtotal: ${order.products ? order.totalPrice / 100 : 0}</div>
-      {order.products && <Link to='/checkout'>Proceed to Checkout</Link>}
+      </ul>
+      {order.products && (
+        <div className="d-flex justify-content-end align-items-center">
+          <div className="m-2">
+            <strong>Subtotal:</strong> $
+            {order.products ? order.totalPrice / 100 : 0}
+          </div>
+          {order.products && (
+            <Link to="/checkout" className="m-2 btn btn-outline-primary">
+              Proceed to Checkout
+            </Link>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -15,6 +15,7 @@ export { default as SingleProduct } from "./products/SingleProduct";
 export { default as ProductForm } from "./products/ProductForm";
 
 export { default as Cart } from "./cartCheckout/Cart";
-export { default as Checkout } from './cartCheckout/Checkout';
-export { default as Confirmation } from './cartCheckout/Confirmation';
-export { default as OrderHistory } from './orderHistory/OrderHistory';
+export { default as Checkout } from "./cartCheckout/Checkout";
+export { default as Confirmation } from "./cartCheckout/Confirmation";
+
+export { default as OrderHistory } from "./orderHistory/OrderHistory";

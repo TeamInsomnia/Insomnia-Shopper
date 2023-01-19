@@ -1,10 +1,12 @@
-// PAGE NOT FOUND attempt, modeled after AllProducts.js
-
 import React from "react";
 
-// AllProducts Component begins here:
 const PageNotFound = () => {
-  return <h2>PAGE NOT FOUND</h2>;
+  return (
+    <>
+      <h2>PAGE NOT FOUND</h2>
+      <img src="https://http.cat/404" />
+    </>
+  );
 };
 
 export default PageNotFound;

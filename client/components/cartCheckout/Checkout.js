@@ -1,47 +1,66 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchSingleUnpurchasedOrderAsync, purchaseOrder, updateOrderConfirmation } from "../../features/cart/orderSlice";
-import {v4 as uuidv4} from 'uuid';
+import {
+  fetchSingleUnpurchasedOrderAsync,
+  purchaseOrder,
+  updateOrderConfirmation,
+} from "../../features/cart/orderSlice";
+import { v4 as uuidv4 } from "uuid";
 
 const Checkout = () => {
-    const {id} = useSelector((state)=>state.auth.me);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const order = useSelector((state) => state.order);
+  const { id } = useSelector((state) => state.auth.me);
+  const order = useSelector((state) => state.order);
 
-    useEffect(() => {
-        dispatch(fetchSingleUnpurchasedOrderAsync(id));
-        if (!order.products) navigate('/notFound'); // prevent user from manually navigating
-      }, [dispatch]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const handleSubmit = async() => {
-        const confirmationNumber = uuidv4().slice(0, 8);
-        await dispatch(updateOrderConfirmation({id, confirmationNumber}));
-        dispatch(purchaseOrder(id));
-        navigate('/confirmation');
-    }
+  useEffect(() => {
+    dispatch(fetchSingleUnpurchasedOrderAsync(id));
+    if (!order.products) navigate("/notFound"); // prevent user from manually navigating
+  }, [dispatch]);
 
-    return(
-        <>
-        <h1>Please review your order below:</h1>
-        <div>
+  const handleSubmit = async () => {
+    const confirmationNumber = uuidv4().slice(0, 8);
+    await dispatch(updateOrderConfirmation({ id, confirmationNumber }));
+    dispatch(purchaseOrder(id));
+    navigate("/confirmation");
+  };
+
+  return (
+    <>
+      <h1>Please review your order below:</h1>
+      <ul className="list-group list-group-flush">
         {order.products &&
           order.products.map((product) => {
             return (
-              <ul key={product.id}>
+              <li key={product.id} className="list-group-item">
                 {product.name}
-                <li>Quantity: {product.orderDetails.quantity}</li>
-                <li>Price: ${product.orderDetails.quantityPrice / 100}</li>
-                <p> ----------------------------------------------- </p>
-              </ul>
+                <div>
+                  <strong>Quantity:</strong> {product.orderDetails.quantity}
+                </div>
+                <div>
+                  <strong>Price:</strong> $
+                  {product.orderDetails.quantityPrice / 100}
+                </div>
+              </li>
             );
           })}
+      </ul>
+      <div className="d-flex justify-content-end align-items-center">
+        <div className="m-2">Total: ${order.totalPrice / 100}</div>
+        {order.products && (
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            className="m-2 btn btn-outline-primary"
+          >
+            Place Order
+          </button>
+        )}
       </div>
-      <div>Total: ${order.totalPrice / 100}</div>
-        {order.products && <button type='submit' onClick={handleSubmit}>Place Order</button>}
-        </>
-    )
-}
+    </>
+  );
+};
 
-export default Checkout; 
+export default Checkout;

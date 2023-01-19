@@ -4,7 +4,6 @@ const {
 } = require("../db");
 const { requireToken, isAdmin } = require("./gatekeepingMiddleware");
 
-// this "Manifests" from xyz.com/api/products/.
 router.get("/", async (req, res, next) => {
   try {
     const products = await Product.findAll();

@@ -13,34 +13,28 @@ export const fetchSingleUnpurchasedOrderAsync = createAsyncThunk(
   }
 );
 
-export const createOrder = createAsyncThunk("createOrder", async ({userId, totalPrice}) => {
-  try {
-    const { data } = await axios.post("/api/order", { userId, totalPrice });
-    return data;
-  } catch (error) {
-    console.error("error in createOrder Thunk: ", error);
+export const createOrder = createAsyncThunk(
+  "createOrder",
+  async ({ userId, totalPrice }) => {
+    try {
+      const { data } = await axios.post("/api/order", { userId, totalPrice });
+      return data;
+    } catch (error) {
+      console.error("error in createOrder Thunk: ", error);
+    }
   }
-});
+);
 
 export const purchaseOrder = createAsyncThunk('/purchaseOrder', async(id) =>{
   try{
     const {data} = await axios.put(`/api/order/${id}`); 
+    console.log(data);
     return data; 
   }
   catch (error){
     console.error(error);
   }
-})
-
-export const updateOrderConfirmation = createAsyncThunk('/confirmationNumber', async({id, confirmationNumber})=> {
-  try{
-    const {data} = await axios.put(`api/order/confirm/${id}`, {confirmationNumber})
-    return data; 
-  }
-  catch (error){
-    console.error(error);
-  }
-})
+});
 
 export const orderSlice = createSlice({
   name: "orderSlice",
@@ -54,12 +48,9 @@ export const orderSlice = createSlice({
       .addCase(createOrder.fulfilled, (state, action) => {
         return action.payload;
       })
-      .addCase(purchaseOrder.fulfilled, (state, action)=>{
-        return action.payload; 
-      })
-      .addCase(updateOrderConfirmation.fulfilled, (state, action)=>{
+      .addCase(purchaseOrder.fulfilled, (state, action) => {
         return action.payload;
-      });
+      })
   },
 });
 

@@ -4,15 +4,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import { addProduct, updateProduct } from "../../features";
 
 const ProductForm = (props) => {
-  const { type } = props;
-  const { productId } = useParams();
-
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [material, setMaterial] = useState("");
   const [color, setColor] = useState("");
 
+  const { type } = props;
+  const { productId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -64,7 +63,6 @@ const ProductForm = (props) => {
         <input
           type="number"
           min={0}
-          // todo: decimals with more than 2 places is an issue
           step={0.01}
           name="price"
           value={price}

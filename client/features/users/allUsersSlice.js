@@ -3,7 +3,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchAllUsers = createAsyncThunk("fetchAllUsers", async () => {
   try {
-    const { data } = await axios.get("/api/users");
+    const token = window.localStorage.getItem("token");
+    const { data } = await axios.get("/api/users", {
+      headers: { authorization: token },
+    });
     return data;
   } catch (err) {
     console.error("mix-up from the fetchAllUsers thunk: ", err);

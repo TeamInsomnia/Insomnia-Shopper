@@ -1,14 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-/*
-  CONSTANT VARIABLES
-*/
 const TOKEN = "token";
 
-/*
-  THUNKS
-*/
 export const me = createAsyncThunk("auth/me", async () => {
   const token = window.localStorage.getItem(TOKEN);
   try {
@@ -48,9 +42,6 @@ export const authenticate = createAsyncThunk(
   }
 );
 
-/*
-  SLICE
-*/
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -78,12 +69,6 @@ export const authSlice = createSlice({
   },
 });
 
-/*
-  ACTIONS
-*/
 export const { logout } = authSlice.actions;
 
-/*
-  REDUCER
-*/
 export default authSlice.reducer;

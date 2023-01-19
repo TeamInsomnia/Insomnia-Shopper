@@ -17,15 +17,11 @@ import {
   OrderHistory
 } from "..";
 import { me } from "../../features";
-// import JoinForm from "../join/JoinForm";
-
-/**
- * COMPONENT
- */
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const isAdmin = useSelector((state) => state.auth.me.isAdmin);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
