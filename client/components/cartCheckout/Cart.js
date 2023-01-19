@@ -118,7 +118,7 @@ const Cart = () => {
             <strong>Subtotal:</strong> $
             {order.products ? order.totalPrice / 100 : 0}
           </div>
-          {order.products && (
+          {order.products.length > 0 && (
             <Link to="/checkout" className="m-2 btn btn-outline-primary">
               Proceed to Checkout
             </Link>
