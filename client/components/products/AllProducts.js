@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchAllProducts } from "../../features";
 
-// AllProducts Component begins here:
 const AllProducts = (props) => {
   const allProducts = useSelector((state) => state.allProducts);
   const isAdmin = useSelector((state) => state.auth.me.isAdmin);

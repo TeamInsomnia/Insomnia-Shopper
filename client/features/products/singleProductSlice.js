@@ -1,4 +1,3 @@
-// WANG: CREATE SINGLE PRODUCT SLICE. START: JAN 11 @ 4:44PM
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 

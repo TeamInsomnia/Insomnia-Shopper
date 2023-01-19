@@ -13,7 +13,3 @@ const Order = db.define("order", {
 });
 
 module.exports = Order;
-
-// Order.prototype.setIsPurchased = function () {
-//   this.update({purchased: true});
-// }

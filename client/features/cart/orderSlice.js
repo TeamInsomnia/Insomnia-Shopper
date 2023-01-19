@@ -13,35 +13,39 @@ export const fetchSingleUnpurchasedOrderAsync = createAsyncThunk(
   }
 );
 
-export const createOrder = createAsyncThunk("createOrder", async ({userId, totalPrice}) => {
+export const createOrder = createAsyncThunk(
+  "createOrder",
+  async ({ userId, totalPrice }) => {
+    try {
+      const { data } = await axios.post("/api/order", { userId, totalPrice });
+      return data;
+    } catch (error) {
+      console.error("error in createOrder Thunk: ", error);
+    }
+  }
+);
+
+export const purchaseOrder = createAsyncThunk("/purchaseOrder", async (id) => {
   try {
-    const { data } = await axios.post("/api/order", { userId, totalPrice });
+    const { data } = await axios.put(`/api/order/${id}`);
+    console.log(data);
     return data;
   } catch (error) {
-    console.error("error in createOrder Thunk: ", error);
+    console.error(error);
   }
 });
 
-export const purchaseOrder = createAsyncThunk('/purchaseOrder', async(id) =>{
-  try{
-    const {data} = await axios.put(`/api/order/${id}`); 
-    console.log(data);
-    return data; 
+export const updatePrice = createAsyncThunk(
+  "/updatePrice",
+  async ({ id, totalPrice }) => {
+    try {
+      const { data } = await axios.put(`api/order/${id}`, { totalPrice });
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
   }
-  catch (error){
-    console.error(error);
-  }
-})
-
-export const updatePrice = createAsyncThunk('/updatePrice', async({id, totalPrice})=> {
-  try{
-    const {data} = await axios.put(`api/order/${id}`, { totalPrice })
-    return data; 
-  }
-  catch (error){
-    console.error(error);
-  }
-})
+);
 
 export const orderSlice = createSlice({
   name: "orderSlice",
@@ -55,12 +59,12 @@ export const orderSlice = createSlice({
       .addCase(createOrder.fulfilled, (state, action) => {
         return action.payload;
       })
-      .addCase(purchaseOrder.fulfilled, (state, action)=>{
-        return action.payload; 
+      .addCase(purchaseOrder.fulfilled, (state, action) => {
+        return action.payload;
       })
-      .addCase(updatePrice.fulfilled, (state, action)=>{
-        return action.payload; 
-      })
+      .addCase(updatePrice.fulfilled, (state, action) => {
+        return action.payload;
+      });
   },
 });
 

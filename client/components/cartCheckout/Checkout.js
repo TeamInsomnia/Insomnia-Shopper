@@ -4,20 +4,20 @@ import { useNavigate } from "react-router-dom";
 import {
   fetchSingleUnpurchasedOrderAsync,
   purchaseOrder,
-} from "../../features/cart/orderSlice";
+} from "../../features";
 
 const Checkout = () => {
   const { id } = useSelector((state) => state.auth.me);
+  const order = useSelector((state) => state.order);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const order = useSelector((state) => state.order);
 
   useEffect(() => {
     dispatch(fetchSingleUnpurchasedOrderAsync(id));
   }, [dispatch]);
 
   const handleSubmit = () => {
-    // order.setIsPurchased();
     dispatch(purchaseOrder(id));
     navigate("/confirmation");
   };

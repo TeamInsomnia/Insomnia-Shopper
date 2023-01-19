@@ -1,5 +1,3 @@
-// this join form (i.e, register a new user) is modeled after AuthForm.js
-
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { authenticate } from "../../features";

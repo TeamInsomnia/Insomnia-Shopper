@@ -14,14 +14,14 @@ router.get("/", async (req, res, next) => {
 
 router.put("/", async (req, res, next) => {
   try {
-    const {orderId, productId, quantity} = req.body
+    const { orderId, productId, quantity } = req.body;
     const order = await OrderDetails.findOne({
       where: {
         orderId: orderId,
-        productId: productId
+        productId: productId,
       },
     });
-    await order.update({quantity: quantity})
+    await order.update({ quantity: quantity });
     await order.save();
     res.send(order);
   } catch (err) {
@@ -29,11 +29,10 @@ router.put("/", async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next)=>{
-  try{
-    res.send(await OrderDetails.create(req.body))
-  }
-  catch(err){
+router.post("/", async (req, res, next) => {
+  try {
+    res.send(await OrderDetails.create(req.body));
+  } catch (err) {
     next(err);
   }
 });
@@ -51,18 +50,17 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res, next)=>{
-  try{
+router.delete("/:id", async (req, res, next) => {
+  try {
     const orderDetail = await OrderDetails.findOne({
       where: {
-        productId: req.params.id
-      }
-    })
+        productId: req.params.id,
+      },
+    });
     res.status(202).send(await orderDetail.destroy());
-  }
-  catch (err){
+  } catch (err) {
     next(err);
   }
-})
+});
 
 module.exports = router;

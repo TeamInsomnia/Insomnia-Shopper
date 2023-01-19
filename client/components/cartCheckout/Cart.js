@@ -1,6 +1,3 @@
-/* CART component (placeholder for now). 
-Modeled after allproducts component: */
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -11,11 +8,13 @@ import {
 } from "../../features";
 
 const Cart = () => {
-  const { id } = useSelector((state) => state.auth.me);
-  const dispatch = useDispatch();
-  const order = useSelector((state) => state.order);
   const [quantityToAdd, setQuantityToAdd] = useState("");
   const [showForm, setShowForm] = useState(0);
+
+  const { id } = useSelector((state) => state.auth.me);
+  const order = useSelector((state) => state.order);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchSingleUnpurchasedOrderAsync(id));

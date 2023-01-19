@@ -4,6 +4,7 @@ import { authenticate } from "../../features";
 
 const AuthForm = ({ name, displayName }) => {
   const { error } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
 
   const handleSubmit = async (evt) => {

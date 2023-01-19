@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import {
   addExistingToCartAsync,
   addNewToCartAsync,
@@ -9,18 +10,18 @@ import {
   deleteProduct,
   createOrder,
 } from "../../features";
-import { useParams, Link, useNavigate } from "react-router-dom";
 
 const SingleProduct = () => {
   const [quantityToAdd, setQuantityToAdd] = useState("1");
+
   const singleProduct = useSelector(selectSingleProduct);
+  const { id, isAdmin } = useSelector((state) => state.auth.me);
+  let cart = useSelector((state) => state.order);
+
+  const { productId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { productId } = useParams();
 
-  const { id, isAdmin } = useSelector((state) => state.auth.me);
-
-  let cart = useSelector((state) => state.order);
   const { name, description, price, material, color, imageUrl, orders } =
     singleProduct;
 
