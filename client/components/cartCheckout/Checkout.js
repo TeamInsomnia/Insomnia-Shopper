@@ -58,6 +58,13 @@ const Checkout = () => {
             Place Order
           </button>
         )}
+        <button
+          type="button"
+          className="btn btn-outline-danger"
+          onClick={() => navigate("/cart")}
+        >
+          Cancel
+        </button>
       </div>
     </>
   );
