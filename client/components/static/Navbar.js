@@ -37,7 +37,7 @@ const Navbar = () => {
             <div className="navbar-nav ms-auto">
               {isLoggedIn ? (
                 <div className="ms-auto">
-                  <Link to="/cart">Cart!</Link>
+                  <Link to="/cart">View Cart</Link>
                   <Link to="/products">View products</Link>
                   {isAdmin && <Link to="/users">Admin: View Users</Link>}
                   <Link to="/profile">Profile</Link>

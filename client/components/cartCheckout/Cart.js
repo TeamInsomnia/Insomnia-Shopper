@@ -14,6 +14,8 @@ const Cart = () => {
   const { id } = useSelector((state) => state.auth.me);
   const order = useSelector((state) => state.order);
 
+  console.log(order);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,10 +39,16 @@ const Cart = () => {
 
   return (
     <div>
-      <h3>
+      <h1>
         There are {order.products ? order.products.length : 0} items in your
         cart
-      </h3>
+      </h1>
+      {order.products && order.products.length ? null : (
+        <img
+          className="img-fluid"
+          src="https://i.kym-cdn.com/entries/icons/mobile/000/026/489/crying.jpg"
+        />
+      )}
       <ul className="list-group list-group-flush">
         {order.products &&
           order.products.map((product) => {

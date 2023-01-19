@@ -6,9 +6,13 @@ const Profile = () => {
   const { id, username, email } = useSelector((state) => state.auth.me);
   return (
     <div>
-      <h2>MEMBER INFORMATION.</h2>
-      <h4>Username: {username} </h4>
-      <h4>Email: {email}</h4>
+      <h1>MEMBER INFORMATION.</h1>
+      <div>
+        <strong>Username:</strong> {username}{" "}
+      </div>
+      <div>
+        <strong>Email:</strong> {email}
+      </div>
       <Link to={`/history/${id}`}>View Order History Here</Link>
     </div>
   );

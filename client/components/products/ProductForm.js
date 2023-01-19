@@ -9,6 +9,7 @@ const ProductForm = (props) => {
   const [price, setPrice] = useState("");
   const [material, setMaterial] = useState("");
   const [color, setColor] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   const { type } = props;
   const { productId } = useParams();
@@ -23,6 +24,7 @@ const ProductForm = (props) => {
       price: parseFloat(price) * 100,
       material,
       color,
+      imageUrl,
     };
 
     if (type === "add") {
@@ -38,6 +40,7 @@ const ProductForm = (props) => {
     setPrice(0);
     setMaterial("");
     setColor("");
+    setImageUrl("");
 
     navigate("/products");
   };
@@ -46,20 +49,28 @@ const ProductForm = (props) => {
     <>
       <h3>PRODUCT FORM</h3>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name: </label>
+        <label htmlFor="name" className="form-label">
+          Name:{" "}
+        </label>
         <input
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required={type === "add" ? true : false}
+          className="form-control"
         />
-        <label htmlFor="description">Description: </label>
+        <label htmlFor="description" className="form-label">
+          Description:{" "}
+        </label>
         <input
           name="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          className="form-control"
         />
-        <label htmlFor="price">Price: </label>
+        <label htmlFor="price" className="form-label">
+          Price:{" "}
+        </label>
         <input
           type="number"
           min={0}
@@ -77,20 +88,38 @@ const ProductForm = (props) => {
             return setPrice(e.target.value);
           }}
           required={type === "add" ? true : false}
+          className="form-control"
         />
-        <label htmlFor="material">Material: </label>
+        <label htmlFor="material" className="form-label">
+          Material:{" "}
+        </label>
         <input
           name="material"
           value={material}
           onChange={(e) => setMaterial(e.target.value)}
+          className="form-control"
         />
-        <label htmlFor="color">Color: </label>
+        <label htmlFor="color" className="form-label">
+          Color:{" "}
+        </label>
         <input
           name="color"
           value={color}
           onChange={(e) => setColor(e.target.value)}
+          className="form-control"
         />
-        <button type="submit">Submit</button>
+        <label htmlFor="imageUrl" className="form-label">
+          Image URL:
+        </label>
+        <input
+          name="imageUrl"
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
+          className="form-control"
+        />
+        <button type="submit" className="btn btn-primary m-3">
+          Submit
+        </button>
       </form>
     </>
   );
