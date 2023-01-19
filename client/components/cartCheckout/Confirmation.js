@@ -12,7 +12,7 @@ const Confirmation = () => {
     })
 
     return(
-        <h1>Thank you! Your order has been received. Your order confirmtion is: #{order && order.confirmationNumber}</h1>
+        <h1>Thank you! Your order has been received. Your order confirmation is: #{order && order.confirmationNumber}</h1>
     )
 }
 
