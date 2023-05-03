@@ -25,57 +25,62 @@ async function seed() {
 
   const products = await Promise.all([
     Product.create({
-      name: "TABLE",
-      description: "Elevated flat surface",
+      name: "Table",
+      description: "Wooden round table with four supportive legs",
       price: 500,
-      material: "stainless steel",
-      color: "red",
+      material: "Wood",
+      color: "Brown",
       imageUrl:
         "https://secure.img1-cg.wfcdn.com/im/32274058/compr-r85/1530/153082342/geary-round-dining-table.jpg",
     }),
     Product.create({
-      name: "SOFA",
-      description: "Long armchair",
+      name: "Sofa",
+      description:
+        "Modern sofa with ample seating for guests - comfortable, and stylish",
       price: 300,
-      material: "luxurious fluff",
-      color: "hazelnut",
+      material: "Linen",
+      color: "Hazelnut",
       imageUrl:
         "https://richmedia.ca-richimage.com/ImageDelivery/imageService?profileId=12026540&id=1743605&recipeId=729",
     }),
     Product.create({
-      name: "CHAIR",
-      description: "non-standing person rest",
+      name: "Chair",
+      description:
+        "This armless chair is great for single person use and lounging",
       price: 200,
-      material: "bamboo",
-      color: "vermillion",
+      material: "Linen",
+      color: "Light Cobalt Blue",
       imageUrl:
         "https://images.costco-static.com/ImageDelivery/imageService?profileId=12026540&itemId=1570087-847&recipeName=680",
     }),
     Product.create({
-      name: "NIGHTSTAND",
-      description: "drawers + flat surface",
+      name: "Nightstand",
+      description:
+        "Elegant nightstand, perfect for any bedroom. This nightstand features high-quality wood and a sleek surface",
       price: 100,
-      material: "oak",
-      color: "indigo",
+      material: "Oak",
+      color: "Indigo",
       imageUrl:
         "https://assets.pbimgs.com/pbimgs/ab/images/dp/wcm/202232/0102/hudson-26-nightstand-1-z.jpg",
     }),
     Product.create({
-      name: "WORK DESK",
-      description: "Table + drawers",
+      name: "Work Desk",
+      description:
+        "47 inch work desk with sleek wooden finish. Contained elevated wood surface for additional storage.",
       price: 700,
-      material: "adamantium",
-      color: "cerulean",
+      material: "Wood",
+      color: "Brown",
       imageUrl:
         "https://thegadgetflow.com/wp-content/uploads/2019/02/work-desk-2019-feb07-featured-dd.jpeg",
     }),
   ]);
   Product.create({
-    name: "BED",
-    description: "Sleepy Surface",
+    name: "Bed Frame",
+    description:
+      "Platform queen sized bed frame, ample storage space under the bed",
     price: 3,
-    material: "goose feathers",
-    color: "white",
+    material: "Linen",
+    color: "Green",
     imageUrl:
       "https://www.ikea.com/us/en/images/products/tufjord-upholstered-bed-frame-djuparp-dark-green__1101321_pe866585_s5.jpg",
   }),
